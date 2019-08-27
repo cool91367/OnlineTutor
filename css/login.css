@@ -1,0 +1,10 @@
+#buildAccount{
+    position: relative;
+    left:11%;
+}
+#wrapper{
+    position: absolute;
+    top:10%;
+    left:50%;
+    margin-left:-150px;
+}

@@ -1,0 +1,37 @@
+#myheader{
+    background-image:url("../src/dinasour.jpg");
+    background-blend-mode: lighten;
+    height: 20vh;
+    width: 100%;
+    position: relative;
+}
+#myNavbar{
+    border-radius:10px;
+    background-color:#99E1D9;
+    position: relative;
+    top:5vh;
+}
+#loginBar li a:hover{
+    color:yellow;
+    font-weight: bolder;
+}
+#card-location{
+    top:5vh;
+    position: relative;
+}
+#search{
+    top:4vh;
+    position: relative;
+    left:75%;
+}
+#start_chat{
+    position: fixed;
+    top:5vh;
+    left:5vh;
+    z-index:999;
+}
+#title{
+    position: relative;
+    font-size:50px;
+    top:5vh;
+}

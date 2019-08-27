@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>O'Reilly Introduction to WebRTC</title>
+		<link rel="stylesheet" type = "text/css" href = "css/style.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.8.1/firebase.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-database.js"></script>
+		<script src = "js/screenfull.js"></script> 
+		<script src = "js/datachannel.js"></script>
+		<script src = "js/calling.js"></script>
+		<script src = "js/screensharing.js"></script>
+	</head>
+	<button class="btn btn-primary" data-toggle="modal" data-target="#model-demo"
+	id="start_chat"onclick="set_chatroom()"
+	style = "float:left">chating</button>
+	
+	<body style="background-color:#FFFAE3">
+		<div class = "container" id = "myheader">
+			<h1 align="center"  valign="center" id="title">online tutor</h1>
+			<nav class="navbar navbar-expand-lg navbar-light " id="myNavbar">
+				<div class="container">
+					<a class="navbar-brand" href="#" style="color:white">線上家教</a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarNav">
+						<ul class="navbar-nav ml-auto" id="loginBar">
+						<li class="nav-item active">
+							<a class="nav-link" href="login.html">登入<span class="sr-only">(current)</span></a>
+						</li>
+						<li class="nav-item" hidden="hidden" id="account">
+							<a class="nav-link" href="#">我的帳號</a>
+						</li>
+						<li class="nav-item" hidden="hidden" id="account2">
+							<a class="nav-link" href="#">帳戶資訊</a>
+						</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>
+		<div class = "container">
+			<div class="input-group w-25" id="search">
+				<input class="form-control" type = "text" placeholder="搜尋老師...">
+				<button class = "btn btn-primary">search</button>
+			</div>
+			<div class = "row" id = "card-location">
+				<div class = "card-deck">
+					<div class="card text-center" style = "width: 18rem">
+						<img src = 'src/head1.jpg' alt = "" class = "card-img-top" style = "max-height: 200px;max-width: 200px;">
+						<div class = "card-body">
+							<h4 class = "card-title">name</h4>
+							<p class = "card-text">經歷</p>
+							<p class = "card-text">學歷</p>
+						</div>
+						<div class = "card-footer">
+								<button type="button" class="btn btn-secondary"style = "float:left">chat</button>
+								<button type="button" class="btn btn-primary" style = "float:right">call</button>
+						</div>
+					</div>
+
+					<div class="card text-center" style = "width: 18rem">
+							<img src = 'src/head2.jpg' alt = "" class = "card-img-top" style = "max-height: 200px;max-width: 200px;">
+							<div class = "card-body">
+								<h4 class = "card-title">name</h4>
+								<p class = "card-text">經歷</p>
+								<p class = "card-text">學歷</p>
+							</div>
+							<div class = "card-footer">
+									<button type="button" class="btn btn-secondary"style = "float:left">chat</button>
+									<button type="button" class="btn btn-primary" style = "float:right">call</button>
+							</div>
+						</div>
+
+						<div class="card text-center" style = "width: 18rem">
+								<img src = 'src/head3.jpg' alt = "" class = "card-img-top" style = "max-height: 200px;max-width: 200px;">
+								<div class = "card-body">
+									<h4 class = "card-title">name</h4>
+									<p class = "card-text">經歷</p>
+									<p class = "card-text">學歷</p>
+								</div>
+								<div class = "card-footer">
+										<button type="button" class="btn btn-secondary"style = "float:left">chat</button>
+										<button type="button" class="btn btn-primary" style = "float:right">教室</button>
+								</div>
+							</div>
+				</div>
+			</div>
+		</div>
+		<!--聊天對話框-->
+		<div class="modal fade show " id="model-demo">
+			<div class = "modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Name</h5>
+						<button class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body" id="conversation">
+					</div>
+					<div class="modal-footer">
+						<input class="form-control" type = "text" placeholder="聊天吧"id="word" onkeydown="sendMessageByEnter(event)">
+						<button class="btn btn-secondary" onclick="send_message()">send</button>
+					</div>
+				</div>
+			</div>>
+		</div>
+	</body>
+<!--
+
+	<body>
+		<video id = "myvideoTag"  ></video><br>
+		their
+		<video id = "theirvideoTag"   autoplay ></video><br>
+		<button type = "button" onclick = "screensharing()">screensharing</button>
+		id:<input id = "friend's_id" type = "text">
+		<button type="button" onclick="call()">call</button>
+		<button type="button" onclick="closeMedia()">hang up</button><br>
+
+		<button type = "button" onclick = "open_dataroom()">open_chatroom</button>
+		<button type = "button" onclick = "sendchannelMessage()">send message</button>
+		<div>
+			<input type="file" id = "sendFile">
+			<button type = "button" onclick = "send_file()">send file</button><br>
+			<progress id= "fileProgress" value = "1" max = "100"></progress>
+			<a id = "receivedFileLink"></a>
+			<hr>
+		</div>
+		<button type="button" onclick="turnToFullscreen()">Fullscreen</button>
+		<button id = "takePicture" type = "button"  autofocus>take a picture</button>
+		<canvas id = "pictureCanvas" ></canvas>
+		<img id = "displayPicture">
+
+	</body>
+-->
+</html>
