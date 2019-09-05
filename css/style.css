@@ -1,0 +1,101 @@
+html{
+    min-height: 100%;
+    height:100%; 
+}
+html.sidebar-active {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin: 0;
+    padding: 0;
+}
+body{
+    min-height: 100%;
+    margin: 0;
+    padding-top:12vh;
+ }
+ .container-fluid{
+    position: relative;
+ }
+ .myTogglerButton{
+    position: absolute;
+    top:1vh;
+    right:3vh;
+    height:8vh;
+    width:10vh;
+    padding:0;
+    margin:0;
+ }
+.myNavbar{
+    height:11vh;
+}
+.navbar-right{
+    background-color:darkturquoise;
+    margin-top:1%;
+    border-top-left-radius:10px;
+    border-bottom-left-radius:10px;
+}
+.main{
+    border-top-right-radius:10px;
+    border-bottom-right-radius:10px;
+    border-bottom-left-radius:10px;
+    background-color:#DAF1F9;
+    height:1000px;
+}
+#myNavbarBrand{
+    font-size:5vh;
+    text-indent:40px;
+}
+#mySearchBar{
+    float:right;
+}
+.mySearchButton {
+    float: left;
+    border-left:none;
+    border-top:none;
+    padding:7px;
+    background:grey;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+.mySearchButton:hover {
+    background: #0b7dda;
+}
+.side-collapse-right {
+    background-color: #A4D7E1;
+    top:11vh;
+    bottom:0;
+    right:0;
+    height:80%;
+    width:20%;
+    position:fixed;
+    overflow:hidden;
+    transition:width .4s;
+}
+.side-collapse-right.in {
+    width:0;
+}
+div.container.main{
+    margin-top:0;
+}
+.label{
+    border-bottom:none;
+    margin-top:5%;
+    border-top-left-radius:10px;
+    border-top-right-radius:10px;
+    width:15%;
+    height:40px;
+    outline:none;
+}
+/* not use yet
+.side-collapse-container-right{
+    position:relative;
+    right:0;
+    transition:right .4s;
+}
+.side-collapse-container-right.out{
+    right:70%;
+}
+*/
