@@ -8,16 +8,48 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="js/jquery.mousewheel.js"></script>  
     </head>
-    <body style="background-color:#f6edcf;">
-        <nav class="navbar myNavbar fixed-top navbar-dark bg-dark">
+    <!--聊天對話框-->
+    <button hidden class="myChatButton btn btn-primary" data-toggle="modal" data-target="#colChat">chatting</button>
+    <div id="colChat" class="modal fade in" role="dialog"  
+    aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>colChat</h3>
+                    <button class="close" data-dismiss="modal">&timesd;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row myChat">
+                            <div class="col-5" id="contactPerson" style="border-right:1px solid;"></div>
+                            <div class="col-7" style="padding:0;">
+                                <div id="chatHeader"><h5>Eason</h5></div>
+                                <div id="chatContent">content</div>
+                                <div class="form-inline" style="position:absolute;bottom:0px;width:100%;height:10%;">
+                                    <textarea id="textArea" placeholder="Message" style="width:80%;height:100%;"></textarea>
+                                    <button class="btn btn-primary"style="width:20%;height:100%;" onclick="show()">send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-dark">
+                    <div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <body style="background-color:#DAF1F9;">
+        <nav class="navbar myNavbar fixed-top navbar-dark">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button class="navbar-toggler myTogglerButton" type="button"
                     data-toggle="collapse-side"
-                    data-target-sidebar=".side-collapse-right" 
-                    data-target-content=".side-collapse-container-right">
+                    data-target-sidebar=".side-collapse-right" >
                         <p class="navbar-toggler-icon" style="height:6vh;width:6vh;"></p>
                     </button>
                     <a class="navbar-brand" href="#" id="myNavbarBrand">ColTutor</a>
@@ -35,12 +67,33 @@
             </div>
         </nav>
         <!--main body-->
-        <div class="container" style="padding-left:0px;margin-top:5px;">
-            <input class="label" type="button" value="找老師" >
-            <input class="label" type="button" value="找學生" >
+        <!--時間流水條-->
+        <div class="schadualBar">
+            <div class="schadual">
+                <div class="timeBar">
+                    <div class="dash">----------------</div>
+                    <div class="time">
+                        19:20
+                    </div>
+                    <div class="dash">-----------------</div>
+                </div>
+            </div>
+            <div class="schadual">
+                <div class="timeBar">
+                    <div class="dash">----------------</div>
+                    <div class="time">
+                        19:20
+                    </div>
+                    <div class="dash">-----------------</div>
+                </div>
+            </div>
+        </div>
+        <div class="labelbar" style="padding-left:0px;margin-top:5px;">
+            <input class="label" type="button" value="老師" >
+            <input class="label" type="button" value="學生" >
             <input class="label" type="button" value="我的教室" >
         </div>
-        <div class="container main">
+        <div class="main">
             <!--search bar-->
             <div id="mySearchBar">
                 <form class=" form-inline">
@@ -56,12 +109,31 @@
 <script>
     //easy-sidebar-toggle-right
     $(function(){
+        //橫向選單
         var sideslider = $('[data-toggle=collapse-side]');
         var get_sidebar = sideslider.attr('data-target-sidebar');
         var get_content = sideslider.attr('data-target-content');
         sideslider.click(function(event){
             $(get_sidebar).toggleClass('in');
-            $(get_content).toggleClass('out');
+        });
+        
+        //橫向滾動
+        $('.schadualBar').on('mouseenter' , function(){
+            $("html").css("overflow-y" , "hidden");
+            var position = $('.schadualBar').scrollLeft();
+            $('.schadualBar').on('mousewheel' , function(e){
+                var position = $('.schadualBar').scrollLeft();
+                if(e.deltaY < 0){
+                    $('.schadualBar').scrollLeft(position+10);
+                    console.log($('.schadualBar').scrollLeft());
+                }
+                else{
+                    $('.schadualBar').scrollLeft(position-10);
+                }
+            })
+        });
+        $('.schadualBar').on('mouseleave' , function(){
+            $("html").css("overflow-y" , "auto");
         });
     });
 </script>
