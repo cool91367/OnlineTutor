@@ -5,14 +5,18 @@
         <link rel="stylesheet" type = "text/css" href = "css/style.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/jquery-ui.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <script src="js/jquery.mousewheel.js"></script>  
+        <script src="js/jquery.mousewheel.js"></script>
+        <script src="js/jquery-ui.js"></script>  
     </head>
     <!--聊天對話框-->
-    <button hidden class="myChatButton btn btn-primary" data-toggle="modal" data-target="#colChat">chatting</button>
+    <div class="myChatButton btn btn-primary" data-toggle="modal" data-target="#colChat">
+        <a href="#" style="color:white;">chatting</a>
+    </div>
     <div id="colChat" class="modal fade in" role="dialog"  
     aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-xl">
@@ -79,14 +83,14 @@
                 </div>
             </div>
             <div class="schadual">
-                <div class="timeBar">
-                    <div class="dash">----------------</div>
-                    <div class="time">
-                        19:20
+                    <div class="timeBar">
+                        <div class="dash">----------------</div>
+                        <div class="time">
+                            19:20
+                        </div>
+                        <div class="dash">-----------------</div>
                     </div>
-                    <div class="dash">-----------------</div>
                 </div>
-            </div>
         </div>
         <div class="labelbar" style="padding-left:0px;margin-top:5px;">
             <input class="label" type="button" value="老師" >
@@ -124,16 +128,36 @@
             $('.schadualBar').on('mousewheel' , function(e){
                 var position = $('.schadualBar').scrollLeft();
                 if(e.deltaY < 0){
-                    $('.schadualBar').scrollLeft(position+10);
-                    console.log($('.schadualBar').scrollLeft());
+                    $('.schadualBar').scrollLeft(position+100);
                 }
                 else{
-                    $('.schadualBar').scrollLeft(position-10);
+                    $('.schadualBar').scrollLeft(position-100);
                 }
             })
         });
         $('.schadualBar').on('mouseleave' , function(){
             $("html").css("overflow-y" , "auto");
         });
+    });
+
+    // button拖曳
+    $('.myChatButton').draggable({
+        containment: "window",
+        drag: function(){
+            console.log($(".myNavbar").height());
+            console.log($(this).offset().top);
+        },
+        stop: function(){
+            if($(this).offset().left < $(window).width()/2){
+                $(this).animate({left: 20} , 500);
+            }
+            else{
+                var screenRight = $(window).width() - 100;
+                $(this).animate({left: screenRight} , 500);
+            }
+            if($(this).offset().top < $(".myNavbar").height()){
+                $(this).animate({top: 0} , 500);
+            }
+        }
     });
 </script>

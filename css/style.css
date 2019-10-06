@@ -98,8 +98,8 @@ div.container.main{
     outline:none;
 }
 .myChatButton{
-    top:200px;
-    position:fixed;
+    left: 20px;
+    position: relative;;
     z-index:100;
 }
 .myChat{
@@ -126,7 +126,8 @@ div.modal-body{
     background-color: #555;
     height:30vh;
 }
-.schadualBar::-webkit-scrollbar{
+.schadualBar::-webkit-scrollbar {
+    display: none;
 }
 .schadual{
     display: inline-block;
@@ -156,24 +157,23 @@ div.modal-body{
     overflow: hidden;
 }
 
-
-/* width */
-#textArea::-webkit-scrollbar {
+/* scroll bar*/
+::-webkit-scrollbar {
     width: 10px;
 }
 
 /* Track */
-#textArea::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background: #f1f1f1; 
 }
 
 /* Handle */
-#textArea::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: #888; 
 }
 
 /* Handle on hover */
-#textArea::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     background: #555; 
 }
 
