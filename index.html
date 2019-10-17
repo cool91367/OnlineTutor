@@ -12,6 +12,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script src="js/jquery.mousewheel.js"></script>
         <script src="js/jquery-ui.js"></script>  
+        <script src="js/jquery.ui.touch-punch.js"></script>
     </head>
     <!--聊天對話框-->
     <div class="myChatButton btn btn-primary" data-toggle="modal" data-target="#colChat">
@@ -72,25 +73,36 @@
         </nav>
         <!--main body-->
         <!--時間流水條-->
-        <div class="schadualBar">
+        <div class="schadualBar enableScrollBar">
             <div class="schadual">
-                <div class="timeBar">
-                    <div class="dash">----------------</div>
-                    <div class="time">
-                        19:20
+                <div class="schadualContainer">
+                    <div class="postName" style="display:inline;">Eason</div>
+                    <div class="postTime" style="position: absolute;display:inline;right:0;">19:27</div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="postTitle">我會自動換行</div>
+                        </div>
+                        <div class="card-body postContent" style="display: none;">
+                            <p>this is content</p>
+                        </div>
+                        <div class="card-body postFooter" style="display: none;padding: 0px;">
+                            <div class="footBorder">
+                                <div class="leavemessageBtn">留言</div>
+                                <div class="press">按讚</div>
+                            </div>
+                        </div>
+                        <div class="card-body postMessage">
+                            <div class="content">
+                                我是內容
+                            </div>
+                            <div class="leavemessageImg">我是大頭照</div>
+                            <div class="leavemessageInput">
+                                <input type="text" class="form-control" placeholder="留言...">
+                            </div>
+                        </div>
                     </div>
-                    <div class="dash">-----------------</div>
                 </div>
             </div>
-            <div class="schadual">
-                    <div class="timeBar">
-                        <div class="dash">----------------</div>
-                        <div class="time">
-                            19:20
-                        </div>
-                        <div class="dash">-----------------</div>
-                    </div>
-                </div>
         </div>
         <div class="labelbar" style="padding-left:0px;margin-top:5px;">
             <input class="label" type="button" value="老師" >
@@ -144,8 +156,6 @@
     $('.myChatButton').draggable({
         containment: "window",
         drag: function(){
-            console.log($(".myNavbar").height());
-            console.log($(this).offset().top);
         },
         stop: function(){
             if($(this).offset().left < $(window).width()/2){
@@ -159,5 +169,50 @@
                 $(this).animate({top: 0} , 500);
             }
         }
+    });
+
+    // card location
+    var random = Math.floor(Math.random()*100);
+    var cardLocation = random % $('.schadualBar').height();
+    $('.schadualContainer').css("top" , 80);
+    // card show
+    $('.card').on('mouseenter' , function(){
+        $(this).css("width" , "20vw");
+        $(this).children('.card-body:lt(2)').stop().show(100);
+        $('.schadualBar').removeClass("enableScrollBar");
+        $('.schadualBar').addClass("disableScrollBar");
+    });
+    $('.card').on('mouseleave' , function(){
+        $(this).css("width" , "10vw");
+        $(this).children('.card-body:lt(3)').stop().hide(100);
+        $('.schadualBar').removeClass("disableScrollBar");
+        $('.schadualBar').addClass("enableScrollBar");
+    });
+    // 留言、按讚按鈕
+    $('.leavemessageBtn').on('mouseenter' , function(){
+        $(this).css("background-color" , "#DCDCDC").css("color" , "black").css("cursor" , "pointer");
+    });
+    $('.leavemessageBtn').on('mouseleave' , function(){
+        $(this).css("background-color" , "").css("color" , "gray").css("cursor" , "");
+    });
+    $('.press').on('mouseenter' , function(){
+        $(this).css("background-color" , "#DCDCDC").css("color" , "black").css("cursor" , "pointer");
+    });
+    $('.press').on('mouseleave' , function(){
+        $(this).css("background-color" , "").css("color" , "gray").css("cursor" , "");
+    });
+    // 留言展開、按下讚
+    $('.leavemessageBtn').on('mousedown' , function(){
+        $('.postMessage').stop().show(100);
+        $(this).css("background-color" , "gray");
+    });
+    $('.leavemessageBtn').on('mouseup' , function(){
+        $(this).css("background-color" , "#DCDCDC");
+    });
+    $('.press').on('mousedown' , function(){
+        $(this).css("background-color" , "gray");
+    });
+    $('.press').on('mouseup' , function(){
+        $(this).css("background-color" , "#DCDCDC");
     });
 </script>

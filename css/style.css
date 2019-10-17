@@ -120,48 +120,118 @@ div.modal-body{
 /*time bar*/
 .schadualBar{
     width:100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
     background-color: #555;
     height:30vh;
+}
+.enableScrollBar{
+    overflow-x: scroll;
+}
+.disableScrollBar{
+    overflow-y: visible;
 }
 .schadualBar::-webkit-scrollbar {
     display: none;
 }
 .schadual{
-    display: inline-block;
-    width: 60vw;
+    width: 15vw;
     height:30vh;
     margin-top:0;
     position: relative;
     background-color: bisque;
+    overflow-y: visible;
 }
-.timeBar{
-    position: absolute;
-    bottom:0px;
+.schadualContainer{
+    position: relative;
+    left: 20%;
+    width: 60%;
+    z-index: 999;
+}
+.card{
+    width:10vw;
+    overflow-y: visible;
+}
+.card-header{
     width:100%;
-    height:20px;
-    text-align: center;
+    height:5vh;
+    overflow-y: visible;
 }
-.time{
-    border: 1px dashed;
-    height: 100%;
-    width: 50%;
-    float: left;
-}
-.dash{
-    width:25%;
-    height: 100%;
-    float: left;
+.postTitle{
+    width:100%;
+    height:100%;
+    word-break: break-all;/*必須*/
+    word-wrap:break-all;
     overflow: hidden;
 }
+.postContent{
+    height:25vh;
+}
+.postFooter{
+    height: 5vh;
+    padding: 2px;
+}
+.footBorder{
+    border-top: solid;
+    border-color:#DCDCDC;
+    position: relative;
+    left: 5%;
+    width: 90%;
+    height: 100%;
+}
+.leavemessageBtn{
+    height: 80%;
+    width: 40%;
+    position: relative;
+    top: 10%;
+    left: 3%;
+    display: inline-block;
+    border-radius: 10px;
+    text-align:center;
+    color: gray;
+    vertical-align: middle;
+    line-height: 35px;
+}
+div.press{
+    height: 80%;
+    width: 40%;
+    display: inline-block;
+    position: relative;
+    top: 10%;
+    left: 14%;
+    border-radius: 10px;
+    text-align:center;
+    color: gray;
+    vertical-align: middle;
+    line-height: 35px;
+}
+.postMessage{
+    width: 100%;
+    height: 20vh;
+    display: none;
+    position: relative;
+    border-top: solid;
+    border-width: 0.1px;
+    border-color:#DCDCDC;
+}
+.leavemessageImg{
+    position: absolute;
+    bottom: 0px;
+    width: 20%;
+    left: 0;
+    display: inline-block;
+}
+.leavemessageInput{
+    position: absolute;
+    bottom: 0px;
+    left: 20%;
+    width: 80%;
+    display: inline-block;
+}
+
 
 /* scroll bar*/
 ::-webkit-scrollbar {
     width: 10px;
 }
-
 /* Track */
 ::-webkit-scrollbar-track {
     background: #f1f1f1; 
@@ -190,8 +260,8 @@ div.modal-body{
         height:55vh;
     }
     .schadual{
-        height:5vh;
-        background-color: aqua;
+        height:100%;
+        background-color: bisque;
         margin-top:0;
         position: relative;
     }
