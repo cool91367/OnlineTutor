@@ -63,7 +63,6 @@ $(function(){
     // 聽取登入狀態
     firebase.auth().onAuthStateChanged(function(user) { 
         if (user) { // User is signed in. 
-            console.log(user);
             var displayName = user.displayName;
             if(displayName){
                 $('#onLoginStateChange').html(displayName)

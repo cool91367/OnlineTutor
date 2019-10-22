@@ -6,6 +6,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/jquery-ui.css">
+        <link href="https://vjs.zencdn.net/5.19/video-js.min.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/7.3.0/video.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-app.js"></script> 
         <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-auth.js"></script> 
@@ -88,6 +90,7 @@
     <!---------------------------------------------------->
     <!---------------------------------------------------->
     <body style="background-color:#DAF1F9;">
+        <!--navbar-->
         <nav class="navbar myNavbar fixed-top navbar-dark">
             <div class="container-fluid">
                 <!--navbar header-->
@@ -121,49 +124,79 @@
         </nav>
         <!--main body-->
         <!--時間流水條-->
-        <div class="schadualBar enableScrollBar">
-            <div class="schadual">
-                <div class="schadualContainer">
-                    <div class="postName" style="display:inline;">Eason</div>
-                    <div class="postTime" style="position: absolute;display:inline;right:0;">19:27</div>
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="postTitle">我會自動換行</div>
+        <div class="schadualBar enableScrollBar">   
+            <div class="schadualContainer">
+                <div class="postName" style="display:inline;">Eason</div>
+                <div class="postTime" style="position: absolute;display:inline;right:0;">19:27</div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="postTitle">我會自動換行</div>
+                    </div>
+                    <div class="card-body postContent" style="display: none;">
+                        <p>this is content</p>
+                    </div>
+                    <div class="card-body postFooter" style="display: none;padding: 0px;">
+                        <div class="footBorder">
+                            <div class="leavemessageBtn">留言</div>
+                            <div class="press">按讚</div>
                         </div>
-                        <div class="card-body postContent" style="display: none;">
-                            <p>this is content</p>
+                    </div>
+                    <div class="card-body postMessage">
+                        <div class="content">
+                            我是內容
                         </div>
-                        <div class="card-body postFooter" style="display: none;padding: 0px;">
-                            <div class="footBorder">
-                                <div class="leavemessageBtn">留言</div>
-                                <div class="press">按讚</div>
-                            </div>
+                        <div class="leavemessageImg">我是大頭照</div>
+                        <div class="leavemessageInput">
+                            <input type="text" class="form-control" placeholder="留言...">
                         </div>
-                        <div class="card-body postMessage">
-                            <div class="content">
-                                我是內容
-                            </div>
-                            <div class="leavemessageImg">我是大頭照</div>
-                            <div class="leavemessageInput">
-                                <input type="text" class="form-control" placeholder="留言...">
-                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="schadualContainer">
+                <div class="postName" style="display:inline;">Eason</div>
+                <div class="postTime" style="position: absolute;display:inline;right:0;">19:27</div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="postTitle">我會自動換行</div>
+                    </div>
+                    <div class="card-body postContent" style="display: none;">
+                        <p>this is content</p>
+                    </div>
+                    <div class="card-body postFooter" style="display: none;padding: 0px;">
+                        <div class="footBorder">
+                            <div class="leavemessageBtn">留言</div>
+                            <div class="press">按讚</div>
+                        </div>
+                    </div>
+                    <div class="card-body postMessage">
+                        <div class="content">
+                            我是內容
+                        </div>
+                        <div class="leavemessageImg">我是大頭照</div>
+                        <div class="leavemessageInput">
+                            <input type="text" class="form-control" placeholder="留言...">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="labelbar" style="padding-left:0px;margin-top:5px;">
-            <input class="label" type="button" value="老師" >
-            <input class="label" type="button" value="學生" >
-            <input class="label" type="button" value="我的教室" >
+            <input id="findTeacher" class="label" type="button" value="老師" >
+            <input id="findStudent" class="label" type="button" value="學生" >
+            <input id="myClassroom" class="label" type="button" value="我的教室" >
         </div>
         <div class="main">
-            <!--search bar-->
-            <div id="mySearchBar">
-                <form class=" form-inline">
-                    <input class="form-control mr-sm-1" type="search" placeholder="Search teacher" aria-label="Search">
-                    <button class="mySearchButton" type="submit"><i class="fa fa-search"></i></button>
-                </form>
+            <div class="myClassroom">
+                <!--searchBar-->
+                <div id="mySearchBar">
+                    <form class=" form-inline">
+                        <input class="form-control mr-sm-1" type="search" placeholder="Search teacher" aria-label="Search">
+                        <button class="mySearchButton" type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+                <video class="theirVideo" width="800" height="700" src="" controls></video>
+                <img id="breaktimeImg" src="src/breaktime.png" width="790" height="690">
+                <button class="btn btn-secondary classBtn">上課囉~</button>
             </div>
         </div>
     </body>
@@ -184,14 +217,18 @@
         //橫向滾動
         $('.schadualBar').on('mouseenter' , function(){
             $("html").css("overflow-y" , "hidden");
-            var position = $('.schadualBar').scrollLeft();
             $('.schadualBar').on('mousewheel' , function(e){
-                var position = $('.schadualBar').scrollLeft();
                 if(e.deltaY < 0){
-                    $('.schadualBar').scrollLeft(position+100);
+                    $('.schadualContainer').each(function(index , element){
+                        var position = $(element).offset().left;
+                        $(element).css("left" ,  position - 50);
+                    });
                 }
                 else{
-                    $('.schadualBar').scrollLeft(position-100);
+                    $('.schadualContainer').each(function(index , element){
+                        var position = $(element).offset().left;
+                        $(element).css("left" ,  position + 50);
+                    });
                 }
             })
         });
@@ -219,19 +256,31 @@
         }
     });
 
-    // card location
-    var random = Math.floor(Math.random()*100);
-    var cardLocation = random % $('.schadualBar').height();
-    $('.schadualContainer').css("top" , 80);
+    // initial card location
+    var random;
+    var cardLocation;// height
+    var temp = 200;
+    $('.schadualContainer').each(function(index , element){
+        random = Math.floor(Math.random()*1000);
+        cardLocation = random % ($('.schadualBar').height()-100);
+        if(cardLocation < $('.myNavbar').height() + 10){
+            cardLocation = $('.myNavbar').height()+10;
+        }
+        $(element).css("left" , temp);
+        $(element).css("top" , cardLocation);
+        temp = temp + 300;
+    });
     // card show
     $('.card').on('mouseenter' , function(){
         $(this).css("width" , "20vw");
+        $(this).parent(".schadualContainer").css("z-index" , 999);
         $(this).children('.card-body:lt(2)').stop().show(100);
         $('.schadualBar').removeClass("enableScrollBar");
         $('.schadualBar').addClass("disableScrollBar");
     });
     $('.card').on('mouseleave' , function(){
         $(this).css("width" , "10vw");
+        $(this).parent(".schadualContainer").css("z-index" , 0);
         $(this).children('.card-body:lt(3)').stop().hide(100);
         $('.schadualBar').removeClass("disableScrollBar");
         $('.schadualBar').addClass("enableScrollBar");
@@ -279,4 +328,22 @@
     $('#googleLoginImg').on('mouseup' , function(){
         $(this).children().eq(0).prop("src" , "src/google_login_img/1x/btn_google_signin_dark_focus_web.png");
     });
+
+    // click labels
+    $('#myClassroom').on('click' , function(){
+        $('.myClassroom').stop().fadeIn(1000);
+    });
+    $('#findTeacher').on('click' , function(){
+        $('.myClassroom').stop().fadeOut(1000);
+    });
+    $('#findStudent').on('click' , function(){
+        $('.myClassroom').stop().fadeOut(1000);
+    });
+
+    // start the class
+    $('.classBtn').on('click' , function(){
+        console.log("click");
+        $('#breaktimeImg').hide();
+        $('.theirVideo').show();
+    })
 </script>
