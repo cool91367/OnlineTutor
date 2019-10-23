@@ -172,7 +172,8 @@ div.modal-body{
     width:10vw;
     overflow-y: visible;
 }
-.card-header{
+div.card-header{
+    padding-top: 0;
     width:100%;
     height:5vh;
     overflow-y: visible;
@@ -272,35 +273,63 @@ div.press{
     position: relative;
     height: 100%;
     width: 100%;
-    display: none;
+    display: block;
 }
-.theirVideo{
+.myVideo{
     position: relative;
     display: none;
     top: 10vh;
-    left: 25%;
+    left: 20%;
+    border-radius: 10px;
 }
 #breaktimeImg{
     position: relative;
     top: 10vh;
-    left: 25%;
+    left: 20%;
     border-radius: 10px;
     border: 2px solid;
-}
-.classBtn{
-    position: relative;
-    top: 50%;
-}
-.theirVideo::-webkit-media-controls-play-button{
-    display: none;
-}
-.theirVideo::-webkit-media-controls-picture-in-picture-button{
     display: block;
 }
-.theirVideo:focus{
+.classBtn{
+    position: absolute;
+    top: 85%;
+    left: 45%;
+}
+.selectStudent{
+    width: 13%;
+    margin: 0px;
+    position: absolute;
+    left: 60%;
+    top: 82%;
+}
+.myVideo::-webkit-media-controls-play-button{
+    display: none;
+}
+.myVideo::-webkit-media-controls-picture-in-picture-button{
+    display: block;
+}
+.myVideo::-webkit-media-controls-timeline{
+    display: none;
+}
+.othersVideo::-webkit-media-controls-play-button{
+    display: none;
+}
+.othersVideo::-webkit-media-controls-picture-in-picture-button{
+    display: block;
+}
+.othersVideo::-webkit-media-controls-timeline{
+    display: none;
+}
+.othersVideo:focus{
     outline: none;
 }
-
+.othersVideo{
+    position: relative;
+    z-index: 999;
+    left: 8%;
+    display: none;
+}
+/* phone*/
 @media(max-width: 980px){
     div.modal-content{
         position:fixed;
@@ -317,6 +346,18 @@ div.press{
         background-color: bisque;
         margin-top:0;
         position: relative;
+    }
+}
+/*laptop*/
+@media(max-height: 720px){
+    body{
+        padding-top: 4vh;
+    }
+    .myChatButton{
+        left: 20px;
+        top: 7vh;
+        position: relative;;
+        z-index:999;
     }
 }
 /* not use yet
