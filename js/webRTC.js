@@ -5,7 +5,7 @@ $(function(){
     var myStream;
     var database = firebase.database();
     var server = {'iceServers':[{'url':'stun:stun.l.google.com:19302'}]};
-    var pc = new webkitRTCPeerConnection(server);
+    var pc;
     var myUid;
     var othersUid;
     var othersNickname = $('#selectStudent').val();
@@ -13,7 +13,7 @@ $(function(){
     $('.classBtn').on('click' , function(){
         if( $('.classBtn').text() == '上課囉~' ){
             $('#breaktimeImg').prop('src' , 'src/hurryup.jpg');
-            /*othersNickname = $('#selectStudent').val();
+            othersNickname = $('#selectStudent').val();
             myUid = firebase.auth().currentUser.uid;
             database.ref('root/user/' + myUid + '/student').on('child_added' , function(data){
                 if(data.val().Nickname == othersNickname){
@@ -21,11 +21,10 @@ $(function(){
                     othersUid = data.val().StudentId;
                     startConnection();
                 }
-            });*/
-            startConnection();
+            });
         }
         else if( $('.classBtn').text() == '下課~' ){
-            database.ref(myUid + '/connection').off();
+            database.ref('root/user/' + myUid + '/connection').off();
             video.srcObject = null;
             otherVideo.srcObject = null;
             otherVideo.disablePictureInPicture = true;
@@ -36,6 +35,10 @@ $(function(){
             myStream.getTracks().forEach(function(track) {
                 track.stop();
             });
+            pc.close();
+            pc.ontrack = null;
+            pc.onicecandidate = null
+            pc = null;
         }
     });
     otherVideo.addEventListener('loadedmetadata', function(e) {
@@ -47,8 +50,6 @@ $(function(){
     // connect function
     function startConnection(){
         pc = new webkitRTCPeerConnection(server);
-        myUid = firebase.auth().currentUser.uid;
-        othersUid = $('#selectStudent').val();
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
         var constraint = {video: true , audio: false};
         pc.onicecandidate = function(evt){
@@ -57,33 +58,24 @@ $(function(){
                 console.log('ice candidate');
             }
         };
-        pc.onnegotiationneeded = function(){
-            pc.createOffer(localDescCreated, logError);
-            console.log('negotiate');
-        };
         pc.ontrack = (event) => {
-            // don't set srcObject again if it is already set.
+            console.log(event.streams);
             if (video.srcObject) return;
             video.srcObject = event.streams[0];
-        };
-        /*pc.onaddstream = function (evt) {
-            console.log('addstream');
-            video.srcObject = evt.stream;
             $('#breaktimeImg').hide();
             $('.myVideo').show();
-        };*/
+        };
         database.ref('root/user/' + myUid + '/connection').on('child_added' , function(data)
         {
             readMessage(data);
-            //database.ref('root/user/' + myUid + '/connection').remove();
+            database.ref('root/user/' + myUid + '/connection').remove();
         });
         navigator.mediaDevices.getUserMedia(constraint)
         .then(function(stream) {
             stream.getTracks().forEach((track) => pc.addTrack(track, stream));
             otherVideo.srcObject = stream;
-            /*myStream = stream;
-            otherVideo.srcObject = myStream;
-            pc.addStream(stream);*/
+            myStream = stream;
+            pc.createOffer(localDescCreated, logError);
             $('.classBtn').text('下課~');
         })
         .catch(function(err) {

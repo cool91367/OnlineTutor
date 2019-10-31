@@ -134,6 +134,33 @@ div.container.main{
 .myChat{
     height:70vh;
 }
+.friendChat{
+    height: 15%;
+    border-bottom: #888 solid 1px;
+}
+.chatStickerArea{
+    display: inline-block;
+    width:15%;
+    border: solid 1px;
+    position:relative;
+    top:10px;
+    left:10px;
+    border-radius: 50%;
+}
+.chatName{
+    display: inline-block;
+    position:relative;
+    top:0px;
+    left:10px;
+    font-weight: bold;
+}
+.chatPartialContent{
+    display: block;
+    width: 80%;
+    position: relative;
+    left: 23%;
+    top: -20%;
+}
 .modal-xl{
     width: 10%;
 }
@@ -141,6 +168,10 @@ div.container.main{
     border-bottom:1px solid;
     text-align:center;
     background-color:gray;
+}
+div.modal-header{
+    height: 8vh;
+    text-align: center;
 }
 div.modal-body{
     height:70vh;

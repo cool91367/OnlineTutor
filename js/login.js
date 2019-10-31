@@ -77,13 +77,13 @@ $(function(){
                 $('#onLoginStateChange').html(user.email);
             }
             $('#logoutBtn').html('<button class="btn btn-danger">logout</button>');
-            /*var students;
+            var students;
             database.ref('root/user/' + user.uid + '/student').on('child_added' , function(data){
                 students += '<option>' + data.val().Nickname + '</option>';
                 $('#selectStudent').html(students);
-            });*/
-            $('#selectStudent').html('<option>NzAz73y0o5aQyPeE7BssEiaxA5n2</option>');
-            //hIljIOhVfiUEhJFhNGhUWKZ8D1m2
+            });
+            /*$('#selectStudent').html('<option>NzAz73y0o5aQyPeE7BssEiaxA5n2</option>');
+            //hIljIOhVfiUEhJFhNGhUWKZ8D1m2*/
         } 
         else { // No user is signed in. 
             $('#logoutBtn').html('');

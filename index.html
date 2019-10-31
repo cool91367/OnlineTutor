@@ -32,13 +32,21 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3>colChat</h3>
+                    <h3 style="position: relative;left: 43%;font-size:45px">colChat</h3>
                     <button class="close" data-dismiss="modal">&timesd;</button>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="row myChat">
-                            <div class="col-5" id="contactPerson" style="border-right:1px solid;"></div>
+                            <div class="col-5" id="contactPerson" style="border-right:1px solid;overflow:auto;">
+                                <div class="friendChat">
+                                    <div class="chatStickerArea">
+                                        <img width="100%" height="100%" src="src/luffy.jpg" style="border-radius: 50%;">
+                                    </div>
+                                    <div class="chatName">Eason</div>
+                                    <div class="chatPartialContent">partial content ~~~~~~~~~~~~~~</div>
+                                </div>
+                            </div>
                             <div class="col-7" style="padding:0;">
                                 <div id="chatHeader"><h5>Eason</h5></div>
                                 <div id="chatContent">content</div>
@@ -113,9 +121,12 @@
                 　  <nav role="navigation" class="navbar-collapse">
                 　 　   <ul class="nav navbar-nav">
                             <h3>Title</h3>
-                            <li class="nav-item" style="width:60px;"><a class="nav-link text-secondary" style="border-bottom:1px solid;" href="#">edit my information</a></li>
-                            <li class="nav-item" style="width:60px;"><a class="nav-link text-secondary" style="border-bottom:1px solid;" href="#">add student</a></li>
-                            <li class="nav-item" style="width:60px;"><a class="nav-link text-secondary" style="border-bottom:1px solid;" href="#">add teacher</a></li>
+                            <br><br>
+                            <li class="nav-item" style="width:50%;"><a class="nav-link text-secondary" style="border-bottom:1px solid;" href="#">edit my information</a></li>
+                            <br>
+                            <li class="nav-item" style="width:50%;"><a class="nav-link text-secondary" style="border-bottom:1px solid;" href="addStudent.html">add student</a></li>
+                            <br>
+                            <li class="nav-item" style="width:50%;"><a class="nav-link text-secondary" style="border-bottom:1px solid;" href="#">add teacher</a></li>
                 　 　   </ul>
                 　  </nav>
                     <div id="logoutBtn">
@@ -244,6 +255,21 @@
         $('.schadualBar').on('mouseleave' , function(){
             $("html").css("overflow-y" , "auto");
         });
+    });
+
+    // chat modal rgb(254, 243, 201)
+    $('.friendChat').on('mouseenter' , function(){
+        if($(this).css('background-color') == 'rgb(254, 243, 201)')
+            return;
+        $(this).css('background-color' , '#fffae6');
+    });
+    $('.friendChat').on('mouseleave' , function(){
+        if($(this).css('background-color') == 'rgb(254, 243, 201)')
+            return;
+        $(this).css('background-color' , '');
+    });
+    $('.friendChat').on('click' , function(){
+        $(this).css('background-color' , '#fef3c9');
     });
 
     // button拖曳
