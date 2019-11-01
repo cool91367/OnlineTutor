@@ -21,6 +21,7 @@
         <script src="js/jquery.mousewheel.js"></script>
         <script src="js/jquery-ui.js"></script>  
         <script src="js/jquery.ui.touch-punch.js"></script>
+        <script src="js/chat.js"></script>
         <script src="js/webRTC.js"></script>
     </head>
     <!--聊天對話框-->
@@ -49,7 +50,14 @@
                             </div>
                             <div class="col-7" style="padding:0;">
                                 <div id="chatHeader"><h5>Eason</h5></div>
-                                <div id="chatContent">content</div>
+                                <div id="chatContent">
+                                    <div id="chatOthersMessage">
+                                        <div class="chatContentStickerArea">
+                                            <img width="100%" height="100%" src="src/luffy.jpg" style="border-radius: 50%;">
+                                        </div>
+                                        <p id="othersMessage">嗨~666666666666666666666</p>
+                                    </div>
+                                </div>
                                 <div class="form-inline" style="position:absolute;bottom:0px;width:100%;height:10%;">
                                     <textarea id="textArea" placeholder="Message" style="width:80%;height:100%;"></textarea>
                                     <button class="btn btn-primary"style="width:20%;height:100%;" onclick="show()">send</button>
@@ -257,19 +265,23 @@
         });
     });
 
-    // chat modal rgb(254, 243, 201)
-    $('.friendChat').on('mouseenter' , function(){
+    // chat modal's contact person (委託事件)
+    $('#contactPerson').on('mouseenter' , ".friendChat" , function(){
         if($(this).css('background-color') == 'rgb(254, 243, 201)')
             return;
-        $(this).css('background-color' , '#fffae6');
+        $(this).css('background-color' , '#fffae6').css("cursor" , "pointer");
     });
-    $('.friendChat').on('mouseleave' , function(){
+    $('#contactPerson').on('mouseleave' , ".friendChat" , function(){
         if($(this).css('background-color') == 'rgb(254, 243, 201)')
             return;
         $(this).css('background-color' , '');
     });
-    $('.friendChat').on('click' , function(){
+    $('#contactPerson').on('click' , ".friendChat" , function(){
+        $('.friendChat').each(function(index){
+            $(this).css('background-color' , '');
+        });
         $(this).css('background-color' , '#fef3c9');
+        $('#chatHeader h5').text($(this).children('.chatName').text());
     });
 
     // button拖曳

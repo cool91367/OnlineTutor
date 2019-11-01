@@ -77,13 +77,11 @@ $(function(){
                 $('#onLoginStateChange').html(user.email);
             }
             $('#logoutBtn').html('<button class="btn btn-danger">logout</button>');
-            var students;
-            database.ref('root/user/' + user.uid + '/student').on('child_added' , function(data){
-                students += '<option>' + data.val().Nickname + '</option>';
-                $('#selectStudent').html(students);
-            });
-            /*$('#selectStudent').html('<option>NzAz73y0o5aQyPeE7BssEiaxA5n2</option>');
-            //hIljIOhVfiUEhJFhNGhUWKZ8D1m2*/
+            // add classroom's selection of students
+            addStudentSelection(user.uid);
+            // load chat student's chat message information
+            var contactPersonHtml = $('#contactPerson').html();
+            loadStudentChat(contactPersonHtml , user.uid);
         } 
         else { // No user is signed in. 
             $('#logoutBtn').html('');
@@ -99,4 +97,30 @@ $(function(){
         var get_sidebar = sideslider.attr('data-target-sidebar');
         $(get_sidebar).toggleClass('in');
     });
+
+    // add classroom's selection of students' function
+    function addStudentSelection(myUid){
+        var students;
+        database.ref('root/user/' + myUid + '/student').on('child_added' , function(data){
+            students += '<option>' + data.val().Nickname + '</option>';
+            $('#selectStudent').html(students);
+        });
+    }
+
+    // load chat message's function
+    function loadStudentChat(html , myUid){
+        database.ref('root/user/' + myUid + '/student').on('child_added' , function(data){
+            var nickname = data.val().Nickname;
+            var studentId = data.val().StudentId;
+            html += '<div class="friendChat">'
+                        +'<div class="chatStickerArea">'
+                            +'<img width="100%" height="100%" src="src/luffy.jpg" style="border-radius: 50%;">'
+                        +'</div>'
+                        +'<div class="chatName">' + nickname + '</div>'
+                        +'<div class= "chatStudentId">' + studentId + '</div>'
+                        +'<div class="chatPartialContent">partial content ~~~~~~~~~~~~~~</div>'
+                    +'</div>';
+            $('#contactPerson').html(html);
+        });
+    }
 });
