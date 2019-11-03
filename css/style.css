@@ -26,7 +26,7 @@ body{
  .loginState{
     position: absolute;
     right: 8vw;
-    bottom: 1vh;
+    bottom: 3vh;
  }
  #logoutBtn{
     position: absolute;
@@ -54,8 +54,8 @@ body{
     margin:0;
  }
 .myNavbar{
-    height:10%;
-    background-color: saddlebrown;
+    height:7%;
+    background-color: #A6FFCC;
     margin-top:0;
 }
 .navbar-right{
@@ -75,7 +75,7 @@ body{
     overflow-y:scroll;
 }
 #myNavbarBrand{
-    font-size:5vh;
+    font-size:3vh;
     text-indent:40px;
 }
 #mySearchBar{
@@ -124,6 +124,7 @@ div.container.main{
     width:15%;
     height:40px;
     outline:none;
+    background-color: #A6FFCC;
 }
 .myChatButton{
     left: 20px;
@@ -212,9 +213,10 @@ div.modal-body{
 .schadualBar{
     width:100%;
     position: relative;
-    top: 20;
-    background-color: #555;
-    height:40vh;
+    top: -3vh;
+    background-color: #FFFDD0;
+    height:45vh;
+    border-bottom: 2px solid white;
 }
 .enableScrollBar{
     overflow-x: scroll;
