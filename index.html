@@ -40,27 +40,14 @@
                     <div class="container-fluid">
                         <div class="row myChat">
                             <div class="col-5" id="contactPerson" style="border-right:1px solid;overflow:auto;">
-                                <div class="friendChat">
-                                    <div class="chatStickerArea">
-                                        <img width="100%" height="100%" src="src/luffy.jpg" style="border-radius: 50%;">
-                                    </div>
-                                    <div class="chatName">Eason</div>
-                                    <div class="chatPartialContent">partial content ~~~~~~~~~~~~~~</div>
-                                </div>
                             </div>
-                            <div class="col-7" style="padding:0;">
-                                <div id="chatHeader"><h5>Eason</h5></div>
+                            <div class="col-7" style="padding:0; height:100%;">
+                                <div id="chatHeader"></div>
                                 <div id="chatContent">
-                                    <div id="chatOthersMessage">
-                                        <div class="chatContentStickerArea">
-                                            <img width="100%" height="100%" src="src/luffy.jpg" style="border-radius: 50%;">
-                                        </div>
-                                        <p id="othersMessage">嗨~666666666666666666666</p>
-                                    </div>
                                 </div>
                                 <div class="form-inline" style="position:absolute;bottom:0px;width:100%;height:10%;">
-                                    <textarea id="textArea" placeholder="Message" style="width:80%;height:100%;"></textarea>
-                                    <button class="btn btn-primary"style="width:20%;height:100%;" onclick="show()">send</button>
+                                    <textarea id="textArea" placeholder="Message" style="width:100%;height:100%;"></textarea>
+                                   <!-- <button class="btn btn-primary"style="width:20%;height:100%;" onclick="show()">send</button>-->
                                 </div>
                             </div>
                         </div>
@@ -245,20 +232,22 @@
         //橫向滾動
         $('.schadualBar').on('mouseenter' , function(){
             $("html").css("overflow-y" , "hidden");
-            $('.schadualBar').on('mousewheel' , function(e){
+        });
+        $('.schadualBar').on('mousewheel' , function(e){
                 if(e.deltaY < 0){
                     $('.schadualContainer').each(function(index , element){
                         var position = $(element).offset().left;
                         $(element).css("left" ,  position - 50);
+                        console.log(position);
                     });
                 }
                 else{
                     $('.schadualContainer').each(function(index , element){
                         var position = $(element).offset().left;
                         $(element).css("left" ,  position + 50);
+                        console.log(position);
                     });
                 }
-            })
         });
         $('.schadualBar').on('mouseleave' , function(){
             $("html").css("overflow-y" , "auto");
@@ -281,7 +270,7 @@
             $(this).css('background-color' , '');
         });
         $(this).css('background-color' , '#fef3c9');
-        $('#chatHeader h5').text($(this).children('.chatName').text());
+        $('#chatHeader').html('<h5>' + $(this).children('.chatName').text() + '</h5>');
     });
 
     // button拖曳

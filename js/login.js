@@ -1,11 +1,6 @@
 // jquerry start function
 $(function(){
     var database = firebase.database();
-    // get all data
-    /*var data = firebase.database().ref('root');
-    data.on('value' , function(snapshot){
-        console.log(snapshot.val());
-    })*/
     // 申請帳號
     $('#signupBtn').on('click' , function(){
         var account = $('#InputAccount').val();
@@ -82,6 +77,21 @@ $(function(){
             // load chat student's chat message information
             var contactPersonHtml = $('#contactPerson').html();
             loadStudentChat(contactPersonHtml , user.uid);
+            loadTeacherChat(contactPersonHtml , user.uid);
+            console.log('here');
+            // 聽取全部的message
+            database.ref('root/user/' + user.uid + '/message/student').on('child_added' , function(data){
+                //console.log(data.key);// 可以知道是哪一個人有新的訊息
+                database.ref('root/user/' + user.uid + '/message/student/' + data.key).on('child_added' , function(data){
+                    //console.log(data.val().Message);
+                });
+            });
+            database.ref('root/user/' + user.uid + '/message/teacher').on('child_added' , function(data){
+                //console.log(data.key);// 可以知道是哪一個人有新的訊息
+                database.ref('root/user/' + user.uid + '/message/teacher/' + data.key).on('child_added' , function(data){
+                    //console.log(data.val().Message);
+                });
+            });
         } 
         else { // No user is signed in. 
             $('#logoutBtn').html('');
@@ -96,18 +106,24 @@ $(function(){
         var sideslider = $('[data-toggle=collapse-side]');
         var get_sidebar = sideslider.attr('data-target-sidebar');
         $(get_sidebar).toggleClass('in');
+        window.location = 'index.html';
     });
 
     // add classroom's selection of students' function
     function addStudentSelection(myUid){
         var students;
+        var teachers;
         database.ref('root/user/' + myUid + '/student').on('child_added' , function(data){
             students += '<option>' + data.val().Nickname + '</option>';
             $('#selectStudent').html(students);
         });
+        database.ref('root/user/' + myUid + '/teacher').on('child_added' , function(data){
+            teachers += '<option>' + data.val().Nickname + '</option>';
+            $('#selectStudent').html(teachers);
+        });
     }
 
-    // load chat message's function
+    // load students chat message's function
     function loadStudentChat(html , myUid){
         database.ref('root/user/' + myUid + '/student').on('child_added' , function(data){
             var nickname = data.val().Nickname;
@@ -118,6 +134,22 @@ $(function(){
                         +'</div>'
                         +'<div class="chatName">' + nickname + '</div>'
                         +'<div class= "chatStudentId">' + studentId + '</div>'
+                        +'<div class="chatPartialContent">partial content ~~~~~~~~~~~~~~</div>'
+                    +'</div>';
+            $('#contactPerson').html(html);
+        });
+    }
+    // load teacher's chat message's function
+    function loadTeacherChat(html , myUid){
+        database.ref('root/user/' + myUid + '/teacher').on('child_added' , function(data){
+            var nickname = data.val().Nickname;
+            var teacherId = data.val().TeacherId;
+            html += '<div class="friendChat">'
+                        +'<div class="chatStickerArea">'
+                            +'<img width="100%" height="100%" src="src/luffy.jpg" style="border-radius: 50%;">'
+                        +'</div>'
+                        +'<div class="chatName">' + nickname + '(teacher)</div>'
+                        +'<div class= "chatTeacherId">' + teacherId + '</div>'
                         +'<div class="chatPartialContent">partial content ~~~~~~~~~~~~~~</div>'
                     +'</div>';
             $('#contactPerson').html(html);

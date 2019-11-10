@@ -25,16 +25,22 @@ $(function(){
                 return;
             }
             if(studentId && subject && cost && chargeMethod){
+                // add student to my information
                 database.ref('root/user/' + myUid + '/student')
                 .push({StudentId: studentId , Subject: subject , Cost: cost , ChargeMethod: chargeMethod , Nickname: studentInformation.Nickname})
                 .then(()=>{
-                    database.ref('root/user' + myUid + 'message/student/' + studentId).set('');
+                    database.ref('root/user/' + myUid + '/message/student/').set(studentId);
                     alert("success");
                     window.location = 'index.html';
                 })
                 .catch((err)=>{
                     console.log(err);
                 });
+                // add teacher to my student
+                database.ref('root/user/' + myUid + '/information').once('value' , function(data){
+                    database.ref('root/user/' + studentId + '/teacher')
+                    .push({TeacherId: myUid , Subject: subject , Cost: cost , ChargeMethod: chargeMethod , Nickname: data.val().Nickname});
+                });    
             }
         });
     });

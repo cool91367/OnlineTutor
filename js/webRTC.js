@@ -22,6 +22,13 @@ $(function(){
                     startConnection();
                 }
             });
+            database.ref('root/user/' + myUid + '/teacher').on('child_added' , function(data){
+                if(data.val().Nickname == othersNickname){
+                    console.log(data.val().Nickname);
+                    othersUid = data.val().TeacherId;
+                    startConnection();
+                }
+            });
         }
         else if( $('.classBtn').text() == '下課~' ){
             database.ref('root/user/' + myUid + '/connection').off();

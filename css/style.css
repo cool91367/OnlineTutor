@@ -148,7 +148,7 @@ div.container.main{
     left:10px;
     border-radius: 50%;
 }
-.chatContentStickerArea{
+.othersChatContentStickerArea{
     display: inline-block;
     width:6%;
     border: solid 1px;
@@ -159,6 +159,24 @@ div.container.main{
     margin: 1px;
     vertical-align:top;
 }
+.myChatContentStickerArea{
+    display: inline-block;
+    width:6%;
+    border: solid 1px;
+    position: relative;
+    top: 0%;
+    left: 92%;
+    border-radius: 50%;
+    margin: 1px;
+    vertical-align:top;
+}
+.myChatContentParagraph{
+    position: absolute;
+    right: 0;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #A6FFCC;
+}
 .chatName{
     display: inline-block;
     position:relative;
@@ -167,6 +185,9 @@ div.container.main{
     font-weight: bold;
 }
 .chatStudentId{
+    display: none;
+}
+.chatTeacherId{
     display: none;
 }
 .chatPartialContent{
@@ -187,17 +208,26 @@ div.container.main{
 }
 #chatContent{
     height: 85%;
+    overflow: auto;
+    padding-top: 2%;
 }
-#chatOthersMessage{
-    height: 10%;
-}
-#othersMessage{
+.othersMessage{
     display: inline-block;
-    width: 90%;
     vertical-align:top;
     position: relative;
-    left: 2%;
-    text-align: left;
+    left: 3%;
+    text-align: center;
+    word-break: break-all;/*必須*/
+    word-wrap:break-all;
+    border-radius: 5px;
+    background-color: #A6FFCC;
+}
+#myChatMessage{
+    display: inline-block;
+    width: 85%;
+    vertical-align:top;
+    position: relative;
+    text-align: right;
     word-break: break-all;/*必須*/
     word-wrap:break-all;
 }
