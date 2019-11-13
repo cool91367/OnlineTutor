@@ -33,7 +33,7 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 style="position: relative;left: 43%;font-size:45px">colChat</h3>
+                    <h3 style="position: relative;left: 43%;font-size:40px">colChat</h3>
                     <button class="close" data-dismiss="modal">&timesd;</button>
                 </div>
                 <div class="modal-body">
@@ -238,14 +238,12 @@
                     $('.schadualContainer').each(function(index , element){
                         var position = $(element).offset().left;
                         $(element).css("left" ,  position - 50);
-                        console.log(position);
                     });
                 }
                 else{
                     $('.schadualContainer').each(function(index , element){
                         var position = $(element).offset().left;
                         $(element).css("left" ,  position + 50);
-                        console.log(position);
                     });
                 }
         });

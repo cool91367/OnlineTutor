@@ -29,7 +29,6 @@ $(function(){
                 database.ref('root/user/' + myUid + '/student')
                 .push({StudentId: studentId , Subject: subject , Cost: cost , ChargeMethod: chargeMethod , Nickname: studentInformation.Nickname})
                 .then(()=>{
-                    database.ref('root/user/' + myUid + '/message/student/').set(studentId);
                     alert("success");
                     window.location = 'index.html';
                 })
