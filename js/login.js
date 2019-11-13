@@ -78,7 +78,6 @@ $(function(){
             var contactPersonHtml = $('#contactPerson').html();
             loadStudentChat(contactPersonHtml , user.uid);
             loadTeacherChat(contactPersonHtml , user.uid);
-            console.log('here');
             // 聽取全部的message
             database.ref('root/user/' + user.uid + '/message/student').on('child_added' , function(data){
                 //console.log(data.key);// 可以知道是哪一個人有新的訊息

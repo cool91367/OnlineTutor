@@ -12,18 +12,11 @@ $(function(){
             });
         }
     });
-    $('.close').on('click' , function(){
+    $('.closeChat').on('click' , function(){
         othersUid = null;
         $('div #chatContent').html('');
         $('#chatHeader h5').text('');
         $('div.friendChat').css('background-color' , '');
-        /*var myUid = firebase.auth().currentUser.uid;
-        database.ref('root/user/' + myUid + '/message/student').on('child_added' , function(data){
-            database.ref('root/user/' + myUid + '/message/student').child(data.key).off();
-        });
-        database.ref('root/user/' + myUid + '/message/teacher').on('child_added' , function(data){
-            database.ref('root/user/' + myUid + '/message/teacher').child(data.key).off();
-        });*/
     })
     $('#contactPerson').on('click' , ".friendChat" , function(){
         scrollHeight = 0;
@@ -111,7 +104,7 @@ $(function(){
                     database.ref('root/user/' + myUid + '/message/teacher/' + othersUid + '/' + data.key).off();
                 });
             }
-            else{
+            else if(sender+ "(teacher)" == $('#chatHeader h5').text()){
                 var html = '<div class="chatOthersMessage" >'
                                 +'<div class="othersChatContentStickerArea">'
                                     +'<img width="100%" height="100%" src="src/luffy.jpg" style="border-radius: 50%;">'
@@ -184,6 +177,9 @@ $(function(){
                 $('#chatContent').append(html);
                 $('.chatOthersMessage').last().css("height" , $(".othersMessage").last().height() + 10);
                 scrollHeight += $('.chatOthersMessage').last().height();
+            }
+            else{
+                console.log("you have something not read");
             }
             database.ref('root/user/' + othersUid + '/message/teacher/' + myUid).off();
             database.ref('root/user/' + othersUid + '/message/teacher/' + myUid).on("child_added" , function(data){

@@ -22,8 +22,34 @@
         <script src="js/jquery-ui.js"></script>  
         <script src="js/jquery.ui.touch-punch.js"></script>
         <script src="js/chat.js"></script>
+        <script src="js/message.js"></script>
         <script src="js/webRTC.js"></script>
     </head>
+    <div id="modalMessage" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header"><h5 class="modal-title">add message</h5><button class="close closePostMessage">&times;</button></div>
+                <div class="modal-body messageBody">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="title" placeholder="Enter title">
+                        <br>
+                        <label for="content">Content</label>
+                        <div class="messageContentInput" >
+                            <textarea class="form-control" style="width: 100%;height: 100%;"></textarea>
+                        </div>
+                        <div class="checkbox">
+                            <label><input class="postCheckBox" type="checkbox" value="private">Private</label>
+                            <label><input class="postCheckBox" type="checkbox" value="public">Public</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary submitPost">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--聊天對話框-->
     <div class="myChatButton btn btn-primary" data-toggle="modal" data-target="#colChat">
         <a href="#" style="color:white;">chatting</a>
@@ -34,7 +60,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 style="position: relative;left: 43%;font-size:40px">colChat</h3>
-                    <button class="close" data-dismiss="modal">&timesd;</button>
+                    <button class="close closeChat" data-dismiss="modal">&timesd;</button>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
@@ -47,7 +73,6 @@
                                 </div>
                                 <div class="form-inline" style="position:absolute;bottom:0px;width:100%;height:10%;">
                                     <textarea id="textArea" placeholder="Message" style="width:100%;height:100%;"></textarea>
-                                   <!-- <button class="btn btn-primary"style="width:20%;height:100%;" onclick="show()">send</button>-->
                                 </div>
                             </div>
                         </div>
@@ -106,7 +131,7 @@
                     <button class="navbar-toggler myTogglerButton" type="button"
                     data-toggle="collapse-side"
                     data-target-sidebar=".side-collapse-right" >
-                        <p class="navbar-toggler-icon" style="height:4vh;width:4vh;"></p>
+                        <p class="navbar-toggler-icon"></p>
                     </button>
                     <a class="navbar-brand" href="#" id="myNavbarBrand">ColTutor</a>
                 </div>
@@ -133,59 +158,8 @@
         <!--main body-->
         <!--時間流水條-->
         <div class="schadualBar enableScrollBar">   
-            <div class="schadualContainer">
-                <div class="postName" style="display:inline;">Eason</div>
-                <div class="postTime" style="position: absolute;display:inline;right:0;">19:27</div>
-                <div class="card">
-                    <div class="card-header">
-                        <div class="postTitle">我會自動換行</div>
-                    </div>
-                    <div class="card-body postContent" style="display: none;">
-                        <p>this is content</p>
-                    </div>
-                    <div class="card-body postFooter" style="display: none;padding: 0px;">
-                        <div class="footBorder">
-                            <div class="leavemessageBtn">留言</div>
-                            <div class="press">按讚</div>
-                        </div>
-                    </div>
-                    <div class="card-body postMessage">
-                        <div class="content">
-                            我是內容
-                        </div>
-                        <div class="leavemessageImg">我是大頭照</div>
-                        <div class="leavemessageInput">
-                            <input type="text" class="form-control" placeholder="留言...">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="schadualContainer">
-                <div class="postName" style="display:inline;">Eason</div>
-                <div class="postTime" style="position: absolute;display:inline;right:0;">19:27</div>
-                <div class="card">
-                    <div class="card-header">
-                        <div class="postTitle">我會自動換行</div>
-                    </div>
-                    <div class="card-body postContent" style="display: none;">
-                        <p>this is content</p>
-                    </div>
-                    <div class="card-body postFooter" style="display: none;padding: 0px;">
-                        <div class="footBorder">
-                            <div class="leavemessageBtn">留言</div>
-                            <div class="press">按讚</div>
-                        </div>
-                    </div>
-                    <div class="card-body postMessage">
-                        <div class="content">
-                            我是內容
-                        </div>
-                        <div class="leavemessageImg">我是大頭照</div>
-                        <div class="leavemessageInput">
-                            <input type="text" class="form-control" placeholder="留言...">
-                        </div>
-                    </div>
-                </div>
+            <div class="addMessageBtn">
+                <img width="80%" height="80%" src="src/plus.png" style="border-radius: 50%;position:relative;left:10%;top:10%;">
             </div>
         </div>
         <div class="labelbar" style="padding-left:0px;margin-top:5px;">
@@ -291,7 +265,7 @@
     });
 
     // initial card location
-    var random;
+   /* var random;
     var cardLocation;// height
     var temp = 200;
     $('.schadualContainer').each(function(index , element){
@@ -303,16 +277,16 @@
         $(element).css("left" , temp);
         $(element).css("top" , cardLocation);
         temp = temp + 300;
-    });
+    });*/
     // card show
-    $('.card').on('mouseenter' , function(){
+    $('.schadualBar').on('mouseenter' , '.card' , function(){
         $(this).css("width" , "20vw");
         $(this).parent(".schadualContainer").css("z-index" , 999);
         $(this).children('.card-body:lt(2)').stop().show(100);
         $('.schadualBar').removeClass("enableScrollBar");
         $('.schadualBar').addClass("disableScrollBar");
     });
-    $('.card').on('mouseleave' , function(){
+    $('.schadualBar').on('mouseleave' , '.card' , function(){
         $(this).css("width" , "10vw");
         $(this).parent(".schadualContainer").css("z-index" , 0);
         $(this).children('.card-body:lt(3)').stop().hide(100);
@@ -320,30 +294,30 @@
         $('.schadualBar').addClass("enableScrollBar");
     });
     // 留言、按讚按鈕
-    $('.leavemessageBtn').on('mouseenter' , function(){
+    $('.schadualBar').on('mouseenter' , '.leavemessageBtn' , function(){
         $(this).css("background-color" , "#DCDCDC").css("color" , "black").css("cursor" , "pointer");
     });
-    $('.leavemessageBtn').on('mouseleave' , function(){
+    $('.schadualBar').on('mouseleave' , '.leavemessageBtn' , function(){
         $(this).css("background-color" , "").css("color" , "gray").css("cursor" , "");
     });
-    $('.press').on('mouseenter' , function(){
+    $('.schadualBar').on('mouseenter' , '.press' , function(){
         $(this).css("background-color" , "#DCDCDC").css("color" , "black").css("cursor" , "pointer");
     });
-    $('.press').on('mouseleave' , function(){
+    $('.schadualBar').on('mouseleave' , '.press' , function(){
         $(this).css("background-color" , "").css("color" , "gray").css("cursor" , "");
     });
     // 留言展開、按下讚
-    $('.leavemessageBtn').on('mousedown' , function(){
+    $('.schadualBar').on('mousedown' , '.leavemessageBtn' , function(){
         $('.postMessage').stop().show(100);
         $(this).css("background-color" , "gray");
     });
-    $('.leavemessageBtn').on('mouseup' , function(){
+    $('.schadualBar').on('mouseup' , '.leavemessageBtn' , function(){
         $(this).css("background-color" , "#DCDCDC");
     });
-    $('.press').on('mousedown' , function(){
+    $('.schadualBar').on('mousedown' , '.press' , function(){
         $(this).css("background-color" , "gray");
     });
-    $('.press').on('mouseup' , function(){
+    $('.schadualBar').on('mouseup' , '.press' , function(){
         $(this).css("background-color" , "#DCDCDC");
     });
 
