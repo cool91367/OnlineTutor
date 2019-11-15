@@ -24,6 +24,7 @@
         <script src="js/chat.js"></script>
         <script src="js/message.js"></script>
         <script src="js/webRTC.js"></script>
+        <script src="js/browse.js"></script>
     </head>
     <div id="modalMessage" class="modal">
         <div class="modal-dialog">
@@ -58,9 +59,9 @@
     aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header" style="background-color:#A6FFCC;border-bottom: 1px solid;">
                     <h3 style="position: relative;left: 43%;font-size:40px">colChat</h3>
-                    <button class="close closeChat" data-dismiss="modal">&timesd;</button>
+                    <button class="close closeChat" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
@@ -71,16 +72,13 @@
                                 <div id="chatHeader"></div>
                                 <div id="chatContent">
                                 </div>
-                                <div class="form-inline" style="position:absolute;bottom:0px;width:100%;height:10%;">
+                                <div class="form-inline" style="position:absolute;bottom:0px;width:100%;height:15%;">
                                     <textarea id="textArea" placeholder="Message" style="width:100%;height:100%;"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer bg-dark">
-                    <div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -142,7 +140,7 @@
                 　 　   <ul class="nav navbar-nav">
                             <h3>Title</h3>
                             <br><br>
-                            <li class="nav-item" style="width:50%;"><a class="nav-link text-secondary" style="border-bottom:1px solid;" href="#">edit my information</a></li>
+                            <li class="nav-item" style="width:50%;"><a class="nav-link text-secondary" style="border-bottom:1px solid;" href="editInfo.html">edit my information</a></li>
                             <br>
                             <li class="nav-item" style="width:50%;"><a class="nav-link text-secondary" style="border-bottom:1px solid;" href="addStudent.html">add student</a></li>
                             <br>
@@ -170,13 +168,6 @@
         <div class="main">
             <!--教室(視訊)-->
             <div class="myClassroom">
-                <!--searchBar-->
-                <div id="mySearchBar">
-                    <form class=" form-inline">
-                        <input class="form-control mr-sm-1" type="search" placeholder="Search teacher" aria-label="Search">
-                        <button class="mySearchButton" type="submit"><i class="fa fa-search"></i></button>
-                    </form>
-                </div>
                 <video id="myVideo" class="myVideo" width="60%" height="70%" src="" controls autoplay></video>
                 <video class="othersVideo" id="othersVideo" width="10%" height="15%" controls autoplay></video>
                 <img id="breaktimeImg" src="src/breaktime.png" width="60%" height="70%">
@@ -185,6 +176,28 @@
                     <label>Student：</label>
                     <select class="form-control form-control-sm" id="selectStudent">
                     </select>
+                </div>
+            </div>
+            <!--find student-->
+            <div class="findStudentHtml">
+                <div style="height:8vh;">
+                    <div id="mySearchBar">
+                        <form class="form-inline">
+                            <input class="form-control mr-sm-1" type="search" placeholder="Search teacher" aria-label="Search">
+                            <button class="mySearchButton" type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--find teacher-->
+            <div class="findTeacherHtml">
+                <div style="height:8vh;">
+                    <div id="mySearchBar">
+                        <form class="form-inline">
+                            <input class="form-control mr-sm-1" type="search" placeholder="Search teacher" aria-label="Search">
+                            <button class="mySearchButton" type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -263,21 +276,6 @@
             }
         }
     });
-
-    // initial card location
-   /* var random;
-    var cardLocation;// height
-    var temp = 200;
-    $('.schadualContainer').each(function(index , element){
-        random = Math.floor(Math.random()*1000);
-        cardLocation = random % ($('.schadualBar').height()-100);
-        if(cardLocation < $('.myNavbar').height() + 10){
-            cardLocation = $('.myNavbar').height()+10;
-        }
-        $(element).css("left" , temp);
-        $(element).css("top" , cardLocation);
-        temp = temp + 300;
-    });*/
     // card show
     $('.schadualBar').on('mouseenter' , '.card' , function(){
         $(this).css("width" , "20vw");
@@ -339,13 +337,21 @@
 
     // click labels
     $('#myClassroom').on('click' , function(){
+        $('.findStudentHtml').hide();
+        $('.findTeacherHtml').hide();
         $('.myClassroom').stop().fadeIn(1000);
     });
     $('#findTeacher').on('click' , function(){
-        $('.myClassroom').stop().fadeOut(1000);
+        $('.myClassroom').hide();
+        $('.findStudentHtml').hide();
+        $('.findTeacherHtml').stop().fadeIn(1000);
     });
     $('#findStudent').on('click' , function(){
-        $('.myClassroom').stop().fadeOut(1000);
+        $('.myClassroom').hide();
+        $('.findTeacherHtml').hide();
+        $('.findStudentHtml').stop().fadeIn(1000);
     });
+
+    
 
 </script>
