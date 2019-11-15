@@ -349,6 +349,7 @@ div.press{
     background-color: white;
     bottom: 6%;
     right: 4%;
+    z-index: 999;
 }
 .addMessageBtn:hover{
     height: 90px;
@@ -375,7 +376,20 @@ div.modal-body.messageBody{
 ::-webkit-scrollbar-thumb {
     background: #888; 
 }
-
+.mycard{
+    width: 22.8%;
+    display: inline-block;
+    margin-right: 1%;
+    margin-left: 1%;
+    vertical-align: top;
+}
+.card-introduction{
+    color: rgb(72, 148, 219);
+}
+.card-introduction:hover{
+    color: blue;
+    cursor: pointer;
+}
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555; 
@@ -384,6 +398,12 @@ div.modal-body.messageBody{
     position: relative;
     height: 100%;
     width: 100%;
+    display: none;
+}
+.findStudentHtml{
+    display: none;
+}
+.findTeacherHtml{
     display: block;
 }
 .myVideo{

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-tw">
     <head>
-        <title>add Student</title>
+        <title>edit information</title>
         <link rel="stylesheet" type = "text/css" href = "css/style.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -14,29 +14,23 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script src="js/config.js"></script>
-        <script src="js/addStudent.js"></script>
+        <script src="js/editInfo.js"></script>
     </head>
     <body>
         <div class="container" style="border: 2px solid;border-radius: 10px;">
             <div style="width: 80%;position:relative;left:10%;">
                 <div class="form-group">
-                    <label for="studentIdentify">Student identifier</label>
-                    <input type="text" class="form-control" id="studentIdentify" placeholder="Enter identify">
-                    <small id="studentAccount" class="form-text text-muted">Not email, Not account!!</small>
+                    <label for="educate">Educate</label>
+                    <input type="text" class="form-control" id="educate" placeholder="">
+                    <label for="introduction">introduction</label>
+                    <textarea class="form-control" id="introduction" placeholder="" style="height: 50vh;"></textarea>
+                    <label for="nickname">nickname</label><br>
+                    <input type="text" class="form-control" id="nickname" placeholder=""style="width: 50%;"><br>
+                    <label for="picture">picture</label><br>
+                    <input type="file" id="picture" placeholder="Modify"><br>
+                    <img src="" id="image" height="100" alt="Image preview...">         
                 </div>
-                <div class="form-group">
-                    <label for="subject">Subject</label>
-                    <input type="text" class="form-control" id="subject" placeholder="Enter subject">
-                </div>
-                <div class="form-group">
-                    <label for="cost">Cost</label><br>
-                    <input type="text" class="form-control" id="cost" placeholder="NT" style="display: inline-block;width:10%;margin: 0;">
-                    <select class="form-control form-control-sm" id="chargeMethod" style="display: inline-block;width:8%;">
-                        <option>/hr</option>
-                        <option>/min</option>
-                    </select>
-                </div>
-                <button id="submit" class="btn btn-primary">Submit</button>
+                <button id="submit" class="btn btn-primary">Modify</button>
             </div>
         </div>
     </body>
