@@ -81,10 +81,8 @@ $(function(){
         else
             alert("not yet!");
     });
-    var left = 10;
     // on post folder
     database.ref('root/post/public').on('child_added' , function(data){
-        console.log($('.schadualBar').scrollTop());
         var title = data.val().Title;
         var content = data.val().Content;
         var nickname = data.val().AuthorNickname;
@@ -95,18 +93,29 @@ $(function(){
         addMessage(title , content , nickname , min , hour , key);
         var random;
         var cardLocation;// height
-        left = left - 10;
-        if($('.schadualBar').scrollTop() == 0){
-            $('.schadualContainer').each(function(index , element){
+        var paddingLeft = 10;
+        var padding = $('.card').width()+20;
+        var lastSecond = $('.schadualContainer').last().index() - 2;
+        if($('.schadualContainer').eq(lastSecond).offset().left == 0 ||$('.schadualContainer').eq(lastSecond).offset().left == 10){
+            for(var i = $('.schadualContainer').last().index()-1; i >= 0; i--){
                 random = Math.floor(Math.random()*1000);
                 cardLocation = random % ($('.schadualBar').height()-100);
                 if(cardLocation < $('.myNavbar').height() + 10){
                     cardLocation = $('.myNavbar').height()+10;
                 }
-                $(element).css("left" , left);
-                $(element).css("top" , cardLocation);
-                left = left + 50;
-            });
+                $('.schadualContainer').eq(i).css("left" , paddingLeft);
+                $('.schadualContainer').eq(i).css("top" , cardLocation);
+                paddingLeft = paddingLeft + padding;
+            }
+        }
+        else{
+            random = Math.floor(Math.random()*1000);
+            cardLocation = random % ($('.schadualBar').height()-100);
+            if(cardLocation < $('.myNavbar').height() + 10){
+                cardLocation = $('.myNavbar').height()+10;
+            }
+            $('.schadualContainer').last().css("top" , cardLocation);
+            $('.schadualContainer').last().css("left" , $('.schadualContainer').eq(lastSecond).offset().left - padding);
         }
     });
 
@@ -114,7 +123,6 @@ $(function(){
         var html = '<div class="schadualContainer">'
                         +'<div class="postKey" style="display:none;">'+key+'</div>'
                         +'<div class="postName" style="display:inline;">' + nickname + '</div>'
-                        +'<div class="postTime" style="position: absolute;display:inline;right:0;">' + hour + ':' + min + '</div>'
                         +'<div class="card">'
                             +'<div class="card-header">'
                                 +'<div class="postTitle">'+title+'</div>'
@@ -138,6 +146,7 @@ $(function(){
                                 +'</div>'
                             +'</div>'
                         +'</div>'
+                        +'<div class="postTime" style="position: absolute;left:0;">' + hour + ':' + min + '</div>'
                     +'</div>';
         $('.schadualBar').append(html);   
     }

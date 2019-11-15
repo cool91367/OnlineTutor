@@ -349,6 +349,7 @@ div.press{
     background-color: white;
     bottom: 6%;
     right: 4%;
+    z-index: 999;
 }
 .addMessageBtn:hover{
     height: 90px;
