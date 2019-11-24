@@ -1,0 +1,357 @@
+<!doctype html>
+<html class="sidebar-active" lang="zh-Hant-TW">
+    <head>
+        <title>Welcome to Online Tutor</title>
+        <link rel="stylesheet" type = "text/css" href = "css/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/jquery-ui.css">
+        <link href="https://vjs.zencdn.net/5.19/video-js.min.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/7.3.0/video.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-app.js"></script> 
+        <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-auth.js"></script> 
+        <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-database.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="js/config.js"></script>
+        <script src="js/login.js"></script>
+        <script src="js/jquery.mousewheel.js"></script>
+        <script src="js/jquery-ui.js"></script>  
+        <script src="js/jquery.ui.touch-punch.js"></script>
+        <script src="js/chat.js"></script>
+        <script src="js/message.js"></script>
+        <script src="js/webRTC.js"></script>
+        <script src="js/browse.js"></script>
+    </head>
+    <div id="modalMessage" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header"><h5 class="modal-title">add message</h5><button class="close closePostMessage">&times;</button></div>
+                <div class="modal-body messageBody">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="title" placeholder="Enter title">
+                        <br>
+                        <label for="content">Content</label>
+                        <div class="messageContentInput" >
+                            <textarea class="form-control" style="width: 100%;height: 100%;"></textarea>
+                        </div>
+                        <div class="checkbox">
+                            <label><input class="postCheckBox" type="checkbox" value="private">Private</label>
+                            <label><input class="postCheckBox" type="checkbox" value="public">Public</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary submitPost">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--聊天對話框-->
+    <div class="myChatButton btn btn-primary" data-toggle="modal" data-target="#colChat">
+        <a href="#" style="color:white;">chatting</a>
+    </div>
+    <div id="colChat" class="modal fade in" role="dialog"  
+    aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#A6FFCC;border-bottom: 1px solid;">
+                    <h3 style="position: relative;left: 43%;font-size:40px">colChat</h3>
+                    <button class="close closeChat" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row myChat">
+                            <div class="col-5" id="contactPerson" style="border-right:1px solid;overflow:auto;">
+                            </div>
+                            <div class="col-7" style="padding:0; height:100%;">
+                                <div id="chatHeader"></div>
+                                <div id="chatContent">
+                                </div>
+                                <div class="form-inline" style="position:absolute;bottom:0px;width:100%;height:15%;">
+                                    <textarea id="textArea" placeholder="Message" style="width:100%;height:100%;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!---------------------------------------------------->
+    <!--登入登出介面-->
+    <div class="modal fade login">
+        <div class="modal-dialog loginModal">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align: center;">
+                    <h2 class="modal-title" style="position: relative;left: 41%;color: yellowgreen;">Login</h2>
+                    <button class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body loginBody">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Account：</label>
+                            <input type="email" class="form-control" id="InputAccount" aria-describedby="emailHelp" placeholder="請輸入帳號">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password：</label>
+                            <input type="password" class="form-control" id="InputPassword" placeholder="請輸入密碼">
+                        </div>
+                    </form>
+                    <a href="#">忘記密碼?</a>
+                </div>
+                <div class="modal-footer">
+                    <div id="googleLoginImg">
+                        <img src="src/google_login_img/1x/btn_google_signin_dark_normal_web.png">
+                    </div>
+                    <button class="btn btn-primary" id="loginBtn">登入</button>
+                    <button class="btn btn-secondary" id="signupBtn">申請帳號</button>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <!---------------------------------------------------->
+    <!---------------------------------------------------->
+    <body style="background-color:#FFFDD0;">
+        <!--navbar-->
+        <nav class="navbar myNavbar fixed-top navbar-dark">
+            <div class="container-fluid">
+                <!--navbar header-->
+                <div class="navbar-header">
+                    <div class="loginState" id="onLoginStateChange">
+                        <button class="btn btn-primary" data-toggle="modal" data-target=".login">login</button>
+                    </div>
+                    <button class="navbar-toggler myTogglerButton" type="button"
+                    data-toggle="collapse-side"
+                    data-target-sidebar=".side-collapse-right" >
+                        <p class="navbar-toggler-icon"></p>
+                    </button>
+                    <a class="navbar-brand" href="#" id="myNavbarBrand">ColTutor</a>
+                </div>
+                <!--------------------------------------------------------------->
+                <!--right navbar-->
+                <div class="navbar-inverse  navbar-right side-collapse-right in" >
+                　  <nav role="navigation" class="navbar-collapse">
+                　 　   <ul class="nav navbar-nav">
+                            <h3>Title</h3>
+                            <br><br>
+                            <li class="nav-item" style="width:50%;"><a class="nav-link text-secondary" style="border-bottom:1px solid;" href="editInfo.html">edit my information</a></li>
+                            <br>
+                            <li class="nav-item" style="width:50%;"><a class="nav-link text-secondary" style="border-bottom:1px solid;" href="addStudent.html">add student</a></li>
+                            <br>
+                            <li class="nav-item" style="width:50%;"><a class="nav-link text-secondary" style="border-bottom:1px solid;" href="#">add teacher</a></li>
+                　 　   </ul>
+                　  </nav>
+                    <div id="logoutBtn">
+                    </div>
+                </div>
+                <!---------------------------------------------------------------->
+            </div>
+        </nav>
+        <!--main body-->
+        <!--時間流水條-->
+        <div class="schadualBar enableScrollBar">   
+            <div class="addMessageBtn">
+                <img width="80%" height="80%" src="src/plus.png" style="border-radius: 50%;position:relative;left:10%;top:10%;">
+            </div>
+        </div>
+        <div class="labelbar" style="padding-left:0px;margin-top:5px;">
+            <input id="findTeacher" class="label" type="button" value="老師" >
+            <input id="findStudent" class="label" type="button" value="學生" >
+            <input id="myClassroom" class="label" type="button" value="我的教室" >
+        </div>
+        <div class="main">
+            <!--教室(視訊)-->
+            <div class="myClassroom">
+                <video id="myVideo" class="myVideo" width="60%" height="70%" src="" controls autoplay></video>
+                <video class="othersVideo" id="othersVideo" width="10%" height="15%" controls autoplay></video>
+                <img id="breaktimeImg" src="src/breaktime.png" width="60%" height="70%">
+                <button class="btn btn-secondary classBtn">上課囉~</button>
+                <div class="selectStudent">
+                    <label>Student：</label>
+                    <select class="form-control form-control-sm" id="selectStudent">
+                    </select>
+                </div>
+            </div>
+            <!--find student-->
+            <div class="findStudentHtml">
+                <div style="height:8vh;">
+                    <div id="mySearchBar">
+                        <form class="form-inline">
+                            <input class="form-control mr-sm-1" type="search" placeholder="Search teacher" aria-label="Search">
+                            <button class="mySearchButton" type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--find teacher-->
+            <div class="findTeacherHtml">
+                <div style="height:8vh;">
+                    <div id="mySearchBar">
+                        <form class="form-inline">
+                            <input class="form-control mr-sm-1" type="search" placeholder="Search teacher" aria-label="Search">
+                            <button class="mySearchButton" type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+<script>
+    //easy-sidebar-toggle-right
+    $(function(){
+        //橫向選單
+        var sideslider = $('[data-toggle=collapse-side]');
+        var get_sidebar = sideslider.attr('data-target-sidebar');
+        var get_content = sideslider.attr('data-target-content');
+        sideslider.click(function(event){
+            $(get_sidebar).toggleClass('in');
+        });
+        
+        //橫向滾動
+        $('.schadualBar').on('mouseenter' , function(){
+            $("html").css("overflow-y" , "hidden");
+        });
+        $('.schadualBar').on('mousewheel' , function(e){
+                if(e.deltaY < 0){
+                    $('.schadualContainer').each(function(index , element){
+                        var position = $(element).offset().left;
+                        $(element).css("left" ,  position - 50);
+                    });
+                }
+                else{
+                    $('.schadualContainer').each(function(index , element){
+                        var position = $(element).offset().left;
+                        $(element).css("left" ,  position + 50);
+                    });
+                }
+        });
+        $('.schadualBar').on('mouseleave' , function(){
+            $("html").css("overflow-y" , "auto");
+        });
+    });
+
+    // chat modal's contact person (委託事件)
+    $('#contactPerson').on('mouseenter' , ".friendChat" , function(){
+        if($(this).css('background-color') == 'rgb(254, 243, 201)')
+            return;
+        $(this).css('background-color' , '#fffae6').css("cursor" , "pointer");
+    });
+    $('#contactPerson').on('mouseleave' , ".friendChat" , function(){
+        if($(this).css('background-color') == 'rgb(254, 243, 201)')
+            return;
+        $(this).css('background-color' , '');
+    });
+    $('#contactPerson').on('click' , ".friendChat" , function(){
+        $('.friendChat').each(function(index){
+            $(this).css('background-color' , '');
+        });
+        $(this).css('background-color' , '#fef3c9');
+        $('#chatHeader').html('<h5>' + $(this).children('.chatName').text() + '</h5>');
+    });
+
+    // button拖曳
+    $('.myChatButton').draggable({
+        containment: "window",
+        drag: function(){
+        },
+        stop: function(){
+            if($(this).offset().left < $(window).width()/2){
+                $(this).animate({left: 20} , 500);
+            }
+            else{
+                var screenRight = $(window).width() - 100;
+                $(this).animate({left: screenRight} , 500);
+            }
+            if($(this).offset().top < $(".myNavbar").height()){
+                $(this).animate({top: 0} , 500);
+            }
+        }
+    });
+    // card show
+    $('.schadualBar').on('mouseenter' , '.card' , function(){
+        $(this).css("width" , "20vw");
+        $(this).parent(".schadualContainer").css("z-index" , 999);
+        $(this).children('.card-body:lt(2)').stop().show(100);
+        $('.schadualBar').removeClass("enableScrollBar");
+        $('.schadualBar').addClass("disableScrollBar");
+    });
+    $('.schadualBar').on('mouseleave' , '.card' , function(){
+        $(this).css("width" , "10vw");
+        $(this).parent(".schadualContainer").css("z-index" , 0);
+        $(this).children('.card-body:lt(3)').stop().hide(100);
+        $('.schadualBar').removeClass("disableScrollBar");
+        $('.schadualBar').addClass("enableScrollBar");
+    });
+    // 留言、按讚按鈕
+    $('.schadualBar').on('mouseenter' , '.leavemessageBtn' , function(){
+        $(this).css("background-color" , "#DCDCDC").css("color" , "black").css("cursor" , "pointer");
+    });
+    $('.schadualBar').on('mouseleave' , '.leavemessageBtn' , function(){
+        $(this).css("background-color" , "").css("color" , "gray").css("cursor" , "");
+    });
+    $('.schadualBar').on('mouseenter' , '.press' , function(){
+        $(this).css("background-color" , "#DCDCDC").css("color" , "black").css("cursor" , "pointer");
+    });
+    $('.schadualBar').on('mouseleave' , '.press' , function(){
+        $(this).css("background-color" , "").css("color" , "gray").css("cursor" , "");
+    });
+    // 留言展開、按下讚
+    $('.schadualBar').on('mousedown' , '.leavemessageBtn' , function(){
+        $('.postMessage').stop().show(100);
+        $(this).css("background-color" , "gray");
+    });
+    $('.schadualBar').on('mouseup' , '.leavemessageBtn' , function(){
+        $(this).css("background-color" , "#DCDCDC");
+    });
+    $('.schadualBar').on('mousedown' , '.press' , function(){
+        $(this).css("background-color" , "gray");
+    });
+    $('.schadualBar').on('mouseup' , '.press' , function(){
+        $(this).css("background-color" , "#DCDCDC");
+    });
+
+    // google login button
+    $('#googleLoginImg').on('mouseenter' , function(){
+        $(this).children().eq(0).prop("src" , "src/google_login_img/1x/btn_google_signin_dark_focus_web.png");
+        $(this).css("cursor" , "pointer");
+    });
+    $('#googleLoginImg').on('mouseleave' , function(){
+        $(this).children().eq(0).prop("src" , "src/google_login_img/1x/btn_google_signin_dark_normal_web.png");
+        $(this).css("cursor" , "");
+    });
+    $('#googleLoginImg').on('mousedown' , function(){
+        $(this).children().eq(0).prop("src" , "src/google_login_img/1x/btn_google_signin_dark_pressed_web.png");
+    });
+    $('#googleLoginImg').on('mouseup' , function(){
+        $(this).children().eq(0).prop("src" , "src/google_login_img/1x/btn_google_signin_dark_focus_web.png");
+    });
+
+    // click labels
+    $('#myClassroom').on('click' , function(){
+        $('.findStudentHtml').hide();
+        $('.findTeacherHtml').hide();
+        $('.myClassroom').stop().fadeIn(1000);
+    });
+    $('#findTeacher').on('click' , function(){
+        $('.myClassroom').hide();
+        $('.findStudentHtml').hide();
+        $('.findTeacherHtml').stop().fadeIn(1000);
+    });
+    $('#findStudent').on('click' , function(){
+        $('.myClassroom').hide();
+        $('.findTeacherHtml').hide();
+        $('.findStudentHtml').stop().fadeIn(1000);
+    });
+
+    
+
+</script>
