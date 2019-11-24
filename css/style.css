@@ -173,7 +173,7 @@ div.container.main{
     right: 0;
     text-align: center;
     border-radius: 5px;
-    background-color: #A6FFCC;
+    background-color: #FFFDD0;
 }
 .chatName{
     display: inline-block;
@@ -199,9 +199,9 @@ div.container.main{
     width: 10%;
 }
 #chatHeader{
-    border-bottom:1px solid;
+   /* border-bottom:1px solid;*/
     text-align:center;
-    background-color:gray;
+   /* background-color:gray;*/
     height: 6%;
 }
 #chatContent{
@@ -218,7 +218,7 @@ div.container.main{
     word-break: break-all;/*必須*/
     word-wrap:break-all;
     border-radius: 5px;
-    background-color: #A6FFCC;
+    background-color: #FFFDD0;
 }
 #myChatMessage{
     display: inline-block;
