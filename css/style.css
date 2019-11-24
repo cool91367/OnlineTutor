@@ -1,0 +1,503 @@
+html{
+    min-height:100%;
+    height:100%; 
+}
+html.sidebar-active {
+    height: 100%;
+    overflow-x: hidden;
+    margin:0;
+    padding:0;
+}
+body{
+    min-height: 100%;
+    margin:0;
+    padding-top:6vh;
+ }
+ .modal-body.loginBody{
+    position: relative;
+    width: 90%;
+    left: 5%;
+    height: 23vh;
+    overflow: auto;
+ }
+ div.modal-header{
+    text-align: center;
+ }
+ .loginState{
+    position: absolute;
+    right: 6%;
+    bottom: 0;
+ }
+ #logoutBtn{
+    position: absolute;
+    right: 1vw;
+    bottom: 1vh;
+ }
+ .loginModal{
+    position: absolute;
+    top: 20vh;
+ }
+ #googleLoginImg{
+    position: absolute;
+    left: 5%;
+ }
+ .container-fluid{
+    position: relative;
+ }
+ .myTogglerButton{
+    position: absolute;
+    top: 0;
+    right:1vw;
+    height:6vh;
+    width:4vw;
+ }
+.myNavbar{
+    height:7%;
+    background-color: #A6FFCC;
+    margin-top:0;
+}
+.navbar-right{
+    background-color:darkturquoise;
+    margin-top:1%;
+    border-top-left-radius:10px;
+    border-bottom-left-radius:10px;
+}
+.main{
+    margin-left:5vw;
+    width:90vw;
+    border-top-right-radius:10px;
+    border-bottom-right-radius:10px;
+    border-bottom-left-radius:10px;
+    background-color:white;
+    height:100vh;
+    overflow-y:scroll;
+}
+#myNavbarBrand{
+    font-size:3vh;
+    text-indent:40px;
+}
+#mySearchBar{
+    float:right;
+}
+.mySearchButton {
+    float: left;
+    border-left:none;
+    border-top:none;
+    padding:7px;
+    background:grey;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+.mySearchButton:hover {
+    background: #0b7dda;
+}
+.side-collapse-right {
+    background-color: #A4D7E1;
+    top:11vh;
+    bottom:0;
+    right:0;
+    height:80%;
+    width:20%;
+    position:fixed;
+    overflow:hidden;
+    transition:width .4s;
+}
+.side-collapse-right.in {
+    width:0;
+}
+div.container.main{
+    margin-top:0;
+}
+.labelbar{
+    margin-left:5vw;
+    width:90vw;
+}
+.label{
+    border-bottom:none;
+    margin-top:0;
+    border-top-left-radius:10px;
+    border-top-right-radius:10px;
+    width:15%;
+    height:40px;
+    outline:none;
+    background-color: #A6FFCC;
+}
+.myChatButton{
+    left: 20px;
+    top: 5vh;
+    position: relative;;
+    z-index:999;
+}
+.myChat{
+    height:70vh;
+}
+.friendChat{
+    height: 15%;
+    border-bottom: #888 solid 1px;
+}
+.chatStickerArea{
+    display: inline-block;
+    width:15%;
+    border: solid 1px;
+    position:relative;
+    top:10px;
+    left:10px;
+    border-radius: 50%;
+}
+.othersChatContentStickerArea{
+    display: inline-block;
+    width:6%;
+    border: solid 1px;
+    position: relative;
+    top: 0%;
+    left: 2%;
+    border-radius: 50%;
+    margin: 1px;
+    vertical-align:top;
+}
+.myChatContentStickerArea{
+    display: inline-block;
+    width:6%;
+    border: solid 1px;
+    position: relative;
+    top: 0%;
+    left: 92%;
+    border-radius: 50%;
+    margin: 1px;
+    vertical-align:top;
+}
+.myChatContentParagraph{
+    position: absolute;
+    right: 0;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #A6FFCC;
+}
+.chatName{
+    display: inline-block;
+    position:relative;
+    top:0px;
+    left:10px;
+    font-weight: bold;
+}
+.chatStudentId{
+    display: none;
+}
+.chatTeacherId{
+    display: none;
+}
+.chatPartialContent{
+    display: block;
+    width: 80%;
+    position: relative;
+    left: 23%;
+    top: -20%;
+}
+.modal-xl{
+    width: 10%;
+}
+#chatHeader{
+    border-bottom:1px solid;
+    text-align:center;
+    background-color:gray;
+    height: 6%;
+}
+#chatContent{
+    height: 85%;
+    overflow: auto;
+    padding-top: 2%;
+}
+.othersMessage{
+    display: inline-block;
+    vertical-align:top;
+    position: relative;
+    left: 3%;
+    text-align: center;
+    word-break: break-all;/*必須*/
+    word-wrap:break-all;
+    border-radius: 5px;
+    background-color: #A6FFCC;
+}
+#myChatMessage{
+    display: inline-block;
+    width: 85%;
+    vertical-align:top;
+    position: relative;
+    text-align: right;
+    word-break: break-all;/*必須*/
+    word-wrap:break-all;
+}
+div.modal-header{
+    height: 8vh;
+    text-align: center;
+}
+div.modal-body{
+    height:70vh;
+    padding:0;
+}
+/*time bar*/
+.schadualBar{
+    width:100%;
+    position: relative;
+    top: -3vh;
+    background-color: #FFFDD0;
+    height:45vh;
+    border-bottom: 2px solid white;
+}
+.enableScrollBar{
+    overflow-x: scroll;
+}
+.disableScrollBar{
+    overflow-y: visible;
+}
+.schadualBar::-webkit-scrollbar {
+    display: none;
+}
+.schadualContainer{
+    position: absolute;
+    display: inline-block;
+    width: 10vw;
+}
+.card{
+    width:10vw;
+    overflow-y: visible;
+}
+div.card-header{
+    padding-top: 0;
+    width:100%;
+    height:5vh;
+    overflow-y: visible;
+}
+.postTitle{
+    width:100%;
+    height:100%;
+    word-break: break-all;/*必須*/
+    word-wrap:break-all;
+    overflow: hidden;
+}
+.postContent{
+    height:25vh;
+}
+.postFooter{
+    height: 5vh;
+    padding: 2px;
+}
+.footBorder{
+    border-top: solid;
+    border-color:#DCDCDC;
+    position: relative;
+    left: 5%;
+    width: 90%;
+    height: 100%;
+}
+.leavemessageBtn{
+    height: 80%;
+    width: 40%;
+    position: relative;
+    top: 10%;
+    left: 3%;
+    display: inline-block;
+    border-radius: 10px;
+    text-align:center;
+    color: gray;
+    vertical-align: middle;
+    line-height: 35px;
+}
+div.press{
+    height: 80%;
+    width: 40%;
+    display: inline-block;
+    position: relative;
+    top: 10%;
+    left: 14%;
+    border-radius: 10px;
+    text-align:center;
+    color: gray;
+    vertical-align: middle;
+    line-height: 35px;
+}
+.postMessage{
+    width: 100%;
+    height: 20vh;
+    display: none;
+    position: relative;
+    border-top: solid;
+    border-width: 0.1px;
+    border-color:#DCDCDC;
+}
+.leavemessageImg{
+    position: absolute;
+    bottom: 0px;
+    width: 20%;
+    left: 0;
+    display: inline-block;
+}
+.leavemessageInput{
+    position: absolute;
+    bottom: 0px;
+    left: 20%;
+    width: 80%;
+    display: inline-block;
+}
+.addMessageBtn{
+    height: 70px;
+    width: 70px;
+    border-radius: 35px;
+    position: absolute;
+    background-color: white;
+    bottom: 6%;
+    right: 4%;
+    z-index: 999;
+}
+.addMessageBtn:hover{
+    height: 90px;
+    width: 90px;
+    border-radius: 45px;
+    cursor: pointer;
+}
+div.modal-body.messageBody{
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+
+/* scroll bar*/
+::-webkit-scrollbar {
+    width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+.mycard{
+    width: 22.8%;
+    display: inline-block;
+    margin-right: 1%;
+    margin-left: 1%;
+    vertical-align: top;
+}
+.card-introduction{
+    color: rgb(72, 148, 219);
+}
+.card-introduction:hover{
+    color: blue;
+    cursor: pointer;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+.myClassroom{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+.findStudentHtml{
+    display: none;
+}
+.findTeacherHtml{
+    display: block;
+}
+.myVideo{
+    position: relative;
+    display: none;
+    top: 10vh;
+    left: 20%;
+    border-radius: 10px;
+}
+#breaktimeImg{
+    position: relative;
+    top: 10vh;
+    left: 20%;
+    border-radius: 10px;
+    border: 2px solid;
+    display: block;
+}
+.classBtn{
+    position: absolute;
+    top: 85%;
+    left: 45%;
+}
+.selectStudent{
+    width: 13%;
+    margin: 0px;
+    position: absolute;
+    left: 60%;
+    top: 82%;
+}
+.myVideo::-webkit-media-controls-play-button{
+    display: none;
+}
+.myVideo::-webkit-media-controls-picture-in-picture-button{
+    display: block;
+}
+.myVideo::-webkit-media-controls-timeline{
+    display: none;
+}
+.othersVideo::-webkit-media-controls-play-button{
+    display: none;
+}
+.othersVideo::-webkit-media-controls-picture-in-picture-button{
+    display: block;
+}
+.othersVideo::-webkit-media-controls-timeline{
+    display: none;
+}
+.othersVideo:focus{
+    outline: none;
+}
+.othersVideo{
+    position: relative;
+    z-index: 999;
+    left: 8%;
+    display: none;
+}
+/* phone*/
+@media(max-width: 980px){
+    div.modal-content{
+        position:fixed;
+        top:20vh;
+        left:10vw;
+        height:60vh;
+        width:80vw;
+    }
+    .myChat{
+        height:55vh;
+    }
+    .schadual{
+        height:100%;
+        background-color: bisque;
+        margin-top:0;
+        position: relative;
+    }
+}
+/*laptop*/
+@media(max-height: 720px){
+    body{
+        padding-top: 4vh;
+    }
+    .myChatButton{
+        left: 20px;
+        top: 7vh;
+        position: relative;;
+        z-index:999;
+    }
+}
+/* not use yet
+.side-collapse-container-right{
+    position:relative;
+    right:0;
+    transition:right .4s;
+}
+.side-collapse-container-right.out{
+    right:70%;
+}
+*/

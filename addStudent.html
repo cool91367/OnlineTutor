@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-tw">
+    <head>
+        <title>add Student</title>
+        <link rel="stylesheet" type = "text/css" href = "css/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-app.js"></script> 
+        <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-auth.js"></script> 
+        <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-database.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="js/config.js"></script>
+        <script src="js/addStudent.js"></script>
+    </head>
+    <body>
+        <div class="container" style="border: 2px solid;border-radius: 10px;">
+            <div style="width: 80%;position:relative;left:10%;">
+                <div class="form-group">
+                    <label for="studentIdentify">Student identifier</label>
+                    <input type="text" class="form-control" id="studentIdentify" placeholder="Enter identify">
+                    <small id="studentAccount" class="form-text text-muted">Not email, Not account!!</small>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" class="form-control" id="subject" placeholder="Enter subject">
+                </div>
+                <div class="form-group">
+                    <label for="cost">Cost</label><br>
+                    <input type="text" class="form-control" id="cost" placeholder="NT" style="display: inline-block;width:10%;margin: 0;">
+                    <select class="form-control form-control-sm" id="chargeMethod" style="display: inline-block;width:8%;">
+                        <option>/hr</option>
+                        <option>/min</option>
+                    </select>
+                </div>
+                <button id="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </body>
+</html>

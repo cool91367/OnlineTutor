@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-tw">
+    <head>
+        <title>edit information</title>
+        <link rel="stylesheet" type = "text/css" href = "css/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-app.js"></script> 
+        <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-auth.js"></script> 
+        <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-database.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="js/config.js"></script>
+        <script src="js/editInfo.js"></script>
+    </head>
+    <body>
+        <div class="container" style="border: 2px solid;border-radius: 10px;">
+            <div style="width: 80%;position:relative;left:10%;">
+                <div class="form-group">
+                    <label for="educate">Educate</label>
+                    <input type="text" class="form-control" id="educate" placeholder="">
+                    <label for="introduction">introduction</label>
+                    <textarea class="form-control" id="introduction" placeholder="" style="height: 50vh;"></textarea>
+                    <label for="nickname">nickname</label><br>
+                    <input type="text" class="form-control" id="nickname" placeholder=""style="width: 50%;"><br>
+                    <label for="picture">picture</label><br>
+                    <input type="file" id="picture" placeholder="Modify"><br>
+                    <img src="" id="image" height="100" alt="Image preview...">         
+                </div>
+                <button id="submit" class="btn btn-primary">Modify</button>
+            </div>
+        </div>
+    </body>
+</html>
