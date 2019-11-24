@@ -221,18 +221,24 @@
             $("html").css("overflow-y" , "hidden");
         });
         $('.schadualBar').on('mousewheel' , function(e){
-                if(e.deltaY < 0){
-                    $('.schadualContainer').each(function(index , element){
-                        var position = $(element).offset().left;
-                        $(element).css("left" ,  position - 50);
-                    });
-                }
-                else{
-                    $('.schadualContainer').each(function(index , element){
-                        var position = $(element).offset().left;
-                        $(element).css("left" ,  position + 50);
-                    });
-                }
+            if(e.deltaY < 0){
+                $('.schadualContainer').each(function(index , element){
+                    var position = $(element).offset().left;
+                    $(element).css("left" ,  position - 50);
+                });
+            }
+            else{
+                $('.schadualContainer').each(function(index , element){
+                    var position = $(element).offset().left;
+                    $(element).css("left" ,  position + 50);
+                });
+            }
+            // hide the message
+            $('.card').css("width" , "10vw");
+            $('.card').parent(".schadualContainer").css("z-index" , 0);
+            $('.card').children('.card-body').stop().hide(100);
+            $('.schadualBar').removeClass("disableScrollBar");
+            $('.schadualBar').addClass("enableScrollBar");
         });
         $('.schadualBar').on('mouseleave' , function(){
             $("html").css("overflow-y" , "auto");
@@ -279,17 +285,19 @@
     // card show
     $('.schadualBar').on('mouseenter' , '.card' , function(){
         $(this).css("width" , "20vw");
+        $(this).children('.postContent').css("width" , "20vw");
+        $('.footBorder').css("width" , "18vw");
         $(this).parent(".schadualContainer").css("z-index" , 999);
         $(this).children('.card-body:lt(2)').stop().show(100);
         $('.schadualBar').removeClass("enableScrollBar");
         $('.schadualBar').addClass("disableScrollBar");
     });
     $('.schadualBar').on('mouseleave' , '.card' , function(){
-        $(this).css("width" , "10vw");
+        /*$(this).css("width" , "10vw");
         $(this).parent(".schadualContainer").css("z-index" , 0);
         $(this).children('.card-body:lt(3)').stop().hide(100);
         $('.schadualBar').removeClass("disableScrollBar");
-        $('.schadualBar').addClass("enableScrollBar");
+        $('.schadualBar').addClass("enableScrollBar");*/
     });
     // 留言、按讚按鈕
     $('.schadualBar').on('mouseenter' , '.leavemessageBtn' , function(){
@@ -306,7 +314,7 @@
     });
     // 留言展開、按下讚
     $('.schadualBar').on('mousedown' , '.leavemessageBtn' , function(){
-        $('.postMessage').stop().show(100);
+        $(this).parent('.footBorder').parent('.postFooter').siblings('.postMessage').stop().show(100);
         $(this).css("background-color" , "gray");
     });
     $('.schadualBar').on('mouseup' , '.leavemessageBtn' , function(){

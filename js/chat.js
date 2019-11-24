@@ -65,6 +65,7 @@ $(function(){
         var myUid = firebase.auth().currentUser.uid;
         database.ref('root/user/' + myUid + '/message/teacher/' + othersUid).off();
         database.ref('root/user/' + myUid + '/message/teacher/' + othersUid).on('child_added' , function(data){
+            var senderID = data.val().SenderID;
             var sender = data.val().Sender;
             var message = data.val().Message;
             var read = data.val().read;
@@ -72,7 +73,7 @@ $(function(){
             if(pLength >= 80)
                 pLength = 80;
             var key = data.key;
-            if(sender == myNickname && read){
+            if(myUid == senderID && read){
                 var html = '<div class="chatMyMessage" >'
                                 +'<div class="myChatContentStickerArea">'
                                     +'<img width="100%" height="100%" src="src/luffy.jpg" style="border-radius: 50%;">'
@@ -86,7 +87,7 @@ $(function(){
                 $('.chatMyMessage').last().css("height" , $(".myChatContentParagraph").last().height() + 10);
                 scrollHeight += $('.chatMyMessage').last().height();
             }
-            else if(sender == myNickname){
+            else if(myUid == senderID){
                 var html = '<div class="chatMyMessage" >'
                                 +'<div class="myChatContentStickerArea">'
                                     +'<img width="100%" height="100%" src="src/luffy.jpg" style="border-radius: 50%;">'
@@ -104,7 +105,7 @@ $(function(){
                     database.ref('root/user/' + myUid + '/message/teacher/' + othersUid + '/' + data.key).off();
                 });
             }
-            else if(sender+ "(teacher)" == $('#chatHeader h5').text()){
+            else if(senderID == othersUid){
                 var html = '<div class="chatOthersMessage" >'
                                 +'<div class="othersChatContentStickerArea">'
                                     +'<img width="100%" height="100%" src="src/luffy.jpg" style="border-radius: 50%;">'
@@ -119,8 +120,9 @@ $(function(){
             database.ref('root/user/' + othersUid + '/message/student/' + myUid).on("child_added" , function(data){
                 var message = data.val().Message;
                 var sender = data.val().Sender;
+                var senderID = data.val().SenderID;
                 if(othersUid)
-                    database.ref('root/user/' + othersUid + '/message/student/' + myUid + '/' + data.key).set({Sender: sender , Message: message , read:1});
+                    database.ref('root/user/' + othersUid + '/message/student/' + myUid + '/' + data.key).set({SenderID:senderID, Sender: sender , Message: message , read:1});
             });
             $("#chatContent").scrollTop(scrollHeight);
         });
@@ -129,13 +131,14 @@ $(function(){
         var myUid = firebase.auth().currentUser.uid;
         database.ref('root/user/' + myUid + '/message/student/' + othersUid).off();
         database.ref('root/user/' + myUid + '/message/student/' + othersUid).on('child_added' , function(data){
+            var senderID = data.val().SenderID;
             var sender = data.val().Sender;
             var message = data.val().Message;
             var read = data.val().read;
             var pLength = 8 + 2 * message.length;
             if(pLength >= 80)
                 pLength = 80;
-            if(sender == myNickname && read){
+            if(myUid == senderID && read){
                 var html = '<div class="chatMyMessage" >'
                                 +'<div class="myChatContentStickerArea">'
                                     +'<img width="100%" height="100%" src="src/luffy.jpg" style="border-radius: 50%;">'
@@ -149,7 +152,7 @@ $(function(){
                 $('.chatMyMessage').last().css("height" , $(".myChatContentParagraph").last().height() + 10);
                 scrollHeight += $('.chatMyMessage').last().height();
             }
-            else if(sender == myNickname){
+            else if(myUid == senderID){
                 var html = '<div class="chatMyMessage" >'
                                 +'<div class="myChatContentStickerArea">'
                                     +'<img width="100%" height="100%" src="src/luffy.jpg" style="border-radius: 50%;">'
@@ -167,7 +170,7 @@ $(function(){
                     database.ref('root/user/' + myUid + '/message/student/' + othersUid + '/' + data.key).off();
                 });
             }
-            else if(sender == $('#chatHeader h5').text()){
+            else if(senderID == othersUid){
                 var html = '<div class="chatOthersMessage" >'
                                 +'<div class="othersChatContentStickerArea">'
                                     +'<img width="100%" height="100%" src="src/luffy.jpg" style="border-radius: 50%;">'
@@ -185,8 +188,9 @@ $(function(){
             database.ref('root/user/' + othersUid + '/message/teacher/' + myUid).on("child_added" , function(data){
                 var message = data.val().Message;
                 var sender = data.val().Sender;
+                var senderID = data.val().SenderID;
                 if(othersUid)
-                    database.ref('root/user/' + othersUid + '/message/teacher/' + myUid + '/' + data.key).set({Sender: sender , Message: message , read:1});
+                    database.ref('root/user/' + othersUid + '/message/teacher/' + myUid + '/' + data.key).set({SenderID:senderID, Sender: sender , Message: message , read:1});
             });
             $("#chatContent").scrollTop(scrollHeight);
         });
@@ -197,8 +201,8 @@ $(function(){
             var myUid = firebase.auth().currentUser.uid;
             var myChatDb = database.ref('root/user/' + myUid + '/message/student/' + othersUid);
             var othersChatDb = database.ref('root/user/' + othersUid + '/message/teacher/' + myUid);
-            myChatDb.push({Sender: myNickname , Message: message , read: 0});
-            othersChatDb.push({Sender: myNickname , Message: message , read: 0});
+            myChatDb.push({SenderID: myUid, Sender: myNickname , Message: message , read: 0});
+            othersChatDb.push({SenderID: myUid, Sender: myNickname , Message: message , read: 0});
         }
     }
     // function send chat message to teacher
@@ -207,8 +211,8 @@ $(function(){
             var myUid = firebase.auth().currentUser.uid;
             var myChatDb = database.ref('root/user/' + myUid + '/message/teacher/' + othersUid);
             var othersChatDb = database.ref('root/user/' + othersUid + '/message/student/' + myUid);
-            myChatDb.push({Sender: myNickname , Message: message , read: 0});
-            othersChatDb.push({Sender: myNickname , Message: message , read: 0});
+            myChatDb.push({SenderID: myUid, Sender: myNickname , Message: message , read: 0});
+            othersChatDb.push({SenderID: myUid, Sender: myNickname , Message: message , read: 0});
         }
     }
 });

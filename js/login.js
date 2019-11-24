@@ -127,15 +127,17 @@ $(function(){
         database.ref('root/user/' + myUid + '/student').on('child_added' , function(data){
             var nickname = data.val().Nickname;
             var studentId = data.val().StudentId;
-            html += '<div class="friendChat">'
+            database.ref('root/user/' + studentId + '/information').once('value' , function(data){
+                html += '<div class="friendChat">'
                         +'<div class="chatStickerArea">'
                             +'<img width="100%" height="100%" src="src/luffy.jpg" style="border-radius: 50%;">'
                         +'</div>'
-                        +'<div class="chatName">' + nickname + '</div>'
+                        +'<div class="chatName">' + data.val().Nickname + '</div>'
                         +'<div class= "chatStudentId">' + studentId + '</div>'
                         +'<div class="chatPartialContent">partial content ~~~~~~~~~~~~~~</div>'
                     +'</div>';
-            $('#contactPerson').html(html);
+                $('#contactPerson').html(html);
+            });
         });
     }
     // load teacher's chat message's function
@@ -143,15 +145,17 @@ $(function(){
         database.ref('root/user/' + myUid + '/teacher').on('child_added' , function(data){
             var nickname = data.val().Nickname;
             var teacherId = data.val().TeacherId;
-            html += '<div class="friendChat">'
+            database.ref('root/user/' + teacherId + '/information').once('value' , function(data){
+                html += '<div class="friendChat">'
                         +'<div class="chatStickerArea">'
                             +'<img width="100%" height="100%" src="src/luffy.jpg" style="border-radius: 50%;">'
                         +'</div>'
-                        +'<div class="chatName">' + nickname + '(teacher)</div>'
+                        +'<div class="chatName">' + data.val().Nickname + '(teacher)</div>'
                         +'<div class= "chatTeacherId">' + teacherId + '</div>'
                         +'<div class="chatPartialContent">partial content ~~~~~~~~~~~~~~</div>'
                     +'</div>';
-            $('#contactPerson').html(html);
+                $('#contactPerson').html(html);
+            });
         });
     }
 });
