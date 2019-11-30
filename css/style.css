@@ -406,6 +406,20 @@ div.modal-body.messageBody{
 .findTeacherHtml{
     display: block;
 }
+.homeworkSys{
+    display: none;
+}
+.studentBtn{
+    display: inline-block;
+    margin-right: 3px;
+    margin-left: 3px;
+    font-size: 30px;
+    font-weight: bold;
+}
+.teacherBtn{
+    display:inline-block;
+    font-size: 10px; 
+}
 .myVideo{
     position: relative;
     display: none;

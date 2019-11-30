@@ -12,6 +12,7 @@
         <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-app.js"></script> 
         <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-auth.js"></script> 
         <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-storage.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -25,7 +26,9 @@
         <script src="js/message.js"></script>
         <script src="js/webRTC.js"></script>
         <script src="js/browse.js"></script>
+        <script src="js/homeworkSys.js"></script>
     </head>
+    <!--add message modal-->
     <div id="modalMessage" class="modal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -47,6 +50,37 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary submitPost">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--add homework modal-->
+    <div id="modalAddHomework" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header"><h5 class="modal-title">add homework</h5><button class="close closeAddHomework">&times;</button></div>
+                <div class="modal-body" style="height:40vh;">
+                    <div class="form-group" style="margin-left:6%;margin-right:6%;">
+                        <label>Student：</label>
+                        <select class="form-control form-control-sm" id="selectHomeworkStudent"></select>
+                        <label>Deadline：</label><br>
+                        <select class="form-control form-control-sm" id="selectHomeworkDeadlineYear" style="width:20%;display:inline-block;">
+                            <option>forever</option><option>2019</option><option>2019</option>
+                        </select>year
+                        <select class="form-control form-control-sm" id="selectHomeworkDeadlineMonth" style="width:10%;display:inline-block;">
+                            <option>1</option><option>2</option><option>3</option><option>4</option>
+                            <option>5</option><option>6</option><option>7</option><option>8</option>
+                            <option>9</option><option>10</option><option>11</option><option>12</option>
+                        </select>month
+                        <select class="form-control form-control-sm" id="selectHomeworkDeadlineDay" style="width:10%;display:inline-block;">
+                        </select>day
+                        <br><br>
+                        <label>Choose file:</label><br>
+                        <input id="addHomeworkFile" type="file">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary addHomeworkOK">OK</button>
                 </div>
             </div>
         </div>
@@ -164,6 +198,7 @@
             <input id="findTeacher" class="label" type="button" value="老師" >
             <input id="findStudent" class="label" type="button" value="學生" >
             <input id="myClassroom" class="label" type="button" value="我的教室" >
+            <input id="myHomework" class="label" type="button" value="homework.." >
         </div>
         <div class="main">
             <!--教室(視訊)-->
@@ -197,6 +232,43 @@
                             <input class="form-control mr-sm-1" type="search" placeholder="Search teacher" aria-label="Search">
                             <button class="mySearchButton" type="submit"><i class="fa fa-search"></i></button>
                         </form>
+                    </div>
+                </div>
+            </div>
+            <!--homework system-->
+            <div class="homeworkSys">
+                <div class="container">
+                    I'm:
+                    <div class="studentBtn">student</div>
+                    <div class="teacherBtn">teacher</div>
+                    <div class="student">
+                        <div class="row" style="margin-top:4%;border-bottom: 4px solid;">
+                            <div class="col-2" style="font-size:30px;">teacher</div>
+                            <div class="col-4" style="font-size:30px;">homework file</div>
+                            <div class="col-2" style="font-size:30px;">deadline</div>
+                            <div class="col-4" style="font-size:30px;">my homework</div>
+                        </div>
+                        <div class="row myHomework" style="margin-top:2%;">
+                            <div class="col-2 teacherName">Eason</div>
+                            <div class="col-4 homeworkName"><div style="margin-bottom: 1%;">hw1</div><div style="margin-bottom: 1%;">hw2</div></div>
+                            <div class="col-2 homeworkDeadline">0106</div>
+                            <div class="col-4 homeworkUpload"><input type="file"></div>
+                        </div>
+                    </div>
+                    <div class="teacher" style="display:none;">
+                        <button class="btn btn-secondary addHomeworkBtn" style="position:relative;left:42%;">add homework</button>
+                        <div class="row" style="margin-top:2%;border-bottom: 4px solid;">
+                            <div class="col-2" style="font-size:30px;">Student</div>
+                            <div class="col-4" style="font-size:30px;">homework file</div>
+                            <div class="col-2" style="font-size:30px;">deadline</div>
+                            <div class="col-4" style="font-size:30px;">my homework</div>
+                        </div>
+                        <div class="row myHomework" style="margin-top:2%;">
+                            <div class="col-2 teacherName">Eason</div>
+                            <div class="col-4 homeworkName"><div style="margin-bottom: 1%;">hw1</div><div style="margin-bottom: 1%;">hw2</div></div>
+                            <div class="col-2 homeworkDeadline">0106</div>
+                            <div class="col-4 homeworkUpload"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -347,19 +419,61 @@
     $('#myClassroom').on('click' , function(){
         $('.findStudentHtml').hide();
         $('.findTeacherHtml').hide();
+        $('.homeworkSys').hide();
         $('.myClassroom').stop().fadeIn(1000);
     });
     $('#findTeacher').on('click' , function(){
         $('.myClassroom').hide();
         $('.findStudentHtml').hide();
+        $('.homeworkSys').hide();
         $('.findTeacherHtml').stop().fadeIn(1000);
     });
     $('#findStudent').on('click' , function(){
         $('.myClassroom').hide();
         $('.findTeacherHtml').hide();
+        $('.homeworkSys').hide();
         $('.findStudentHtml').stop().fadeIn(1000);
     });
+    $('#myHomework').on('click' , function(){
+        $('.myClassroom').hide();
+        $('.findTeacherHtml').hide();
+        $('.findStudentHtml').hide();
+        $('.homeworkSys').stop().fadeIn(1000);
+    });
 
-    
+    // homeworkSys character
+    var character = "student";
+    $('.studentBtn').on('mouseenter' , function(){
+        $(this).css('font-size' , 30).css('cursor' , 'pointer');
+    });
+    $('.teacherBtn').on('mouseenter' , function(){
+        $(this).css('font-size' , 30).css('cursor' , 'pointer');
+    });
+    $('.studentBtn').on('mouseleave' , function(){
+        if(character == "student")
+            $(this).css('font-size' , 30);
+        else
+            $(this).css('font-size' , 10);
+    });
+    $('.teacherBtn').on('mouseleave' , function(){
+        if(character == "teacher")
+            $(this).css('font-size' , 30);
+        else
+            $(this).css('font-size' , 10);
+    });
+    $('.studentBtn').on('click' , function(){
+        character = "student";
+        $(this).css('font-size' , 30).css('font-weight' , 'bold');
+        $('.teacherBtn').css('font-size' , 10).css('font-weight' , 'normal');
+        $('.homeworkSys').children('.container').children('.teacher').hide();
+        $('.homeworkSys').children('.container').children('.student').stop().show(100);
+    });
+    $('.teacherBtn').on('click' , function(){
+        character = "teacher";
+        $(this).css('font-size' , 30).css('font-weight' , 'bold');
+        $('.studentBtn').css('font-size' , 10).css('font-weight' , 'normal');
+        $('.homeworkSys').children('.container').children('.student').hide();
+        $('.homeworkSys').children('.container').children('.teacher').stop().show(100);
+    });
 
 </script>
