@@ -63,6 +63,8 @@
                     <div class="form-group" style="margin-left:6%;margin-right:6%;">
                         <label>Student：</label>
                         <select class="form-control form-control-sm" id="selectHomeworkStudent"></select>
+                        <label>Homework name：</label><br>
+                        <input type="text" class="form-control" id="inputHomeworkName" placeholder="name"><br>
                         <label>Deadline：</label><br>
                         <select class="form-control form-control-sm" id="selectHomeworkDeadlineYear" style="width:20%;display:inline-block;">
                             <option>forever</option><option>2019</option><option>2019</option>
@@ -244,31 +246,34 @@
                     <div class="student">
                         <div class="row" style="margin-top:4%;border-bottom: 4px solid;">
                             <div class="col-2" style="font-size:30px;">teacher</div>
-                            <div class="col-4" style="font-size:30px;">homework file</div>
+                            <div class="col-2" style="font-size:30px;">homework name</div>
+                            <div class="col-2" style="font-size:30px;">homework file</div>
                             <div class="col-2" style="font-size:30px;">deadline</div>
                             <div class="col-4" style="font-size:30px;">my homework</div>
                         </div>
-                        <div class="row myHomework" style="margin-top:2%;">
+                        <!--<div class="row myHomework" style="margin-top:2%;">
                             <div class="col-2 teacherName">Eason</div>
                             <div class="col-4 homeworkName"><div style="margin-bottom: 1%;">hw1</div><div style="margin-bottom: 1%;">hw2</div></div>
                             <div class="col-2 homeworkDeadline">0106</div>
                             <div class="col-4 homeworkUpload"><input type="file"></div>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="teacher" style="display:none;">
                         <button class="btn btn-secondary addHomeworkBtn" style="position:relative;left:42%;">add homework</button>
                         <div class="row" style="margin-top:2%;border-bottom: 4px solid;">
-                            <div class="col-2" style="font-size:30px;">Student</div>
-                            <div class="col-4" style="font-size:30px;">homework file</div>
-                            <div class="col-2" style="font-size:30px;">deadline</div>
-                            <div class="col-4" style="font-size:30px;">my homework</div>
+                            <div class="col-2" style="font-size:25px;">Student</div>
+                            <div class="col-2" style="font-size:25px;">homework name</div>
+                            <div class="col-2" style="font-size:25px;">homework file</div>
+                            <div class="col-2" style="font-size:25px;">deadline</div>
+                            <div class="col-4" style="font-size:25px;">my homework</div>
                         </div>
-                        <div class="row myHomework" style="margin-top:2%;">
-                            <div class="col-2 teacherName">Eason</div>
-                            <div class="col-4 homeworkName"><div style="margin-bottom: 1%;">hw1</div><div style="margin-bottom: 1%;">hw2</div></div>
+                        <!--<div class="row studentsHomework1" style="margin-top:2%;">
+                            <div class="col-2 studentName">Eason</div>
+                            <div class="col-2 homeworkName"><div style="margin-bottom: 1%;">hw1</div><div style="margin-bottom: 1%;">hw2</div></div>
+                            <div class="col-2 homeworkFile"></div>
                             <div class="col-2 homeworkDeadline">0106</div>
                             <div class="col-4 homeworkUpload"></div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -308,7 +313,9 @@
             // hide the message
             $('.card').css("width" , "10vw");
             $('.card').parent(".schadualContainer").css("z-index" , 0);
-            $('.card').children('.card-body').stop().hide(100);
+            $('.card').children('.card-body.postContent').stop().hide(100);
+            $(".schadualContainer").children('.card').children('.postFooter').stop().hide(100);
+            $('div.card-body.postMessage').stop().hide(100);
             $('.schadualBar').removeClass("disableScrollBar");
             $('.schadualBar').addClass("enableScrollBar");
         });

@@ -4,7 +4,7 @@ $(function(){
     var teacherIndex = 1;
     database.ref('root/user/').once('value' , function(data){
         data.forEach(function(info){
-            console.log(info.val().information.Nickname);
+            //console.log(info.val().information.Nickname);
             var html = '<div class="mycard">'
                             +'<div class="card-deck">'
                                 +'<div class="card text-center">'
@@ -29,7 +29,7 @@ $(function(){
     });
     database.ref('root/user/').once('value' , function(data){
         data.forEach(function(info){
-            console.log(info.val().information.Nickname);
+            //console.log(info.val().information.Nickname);
             var html = '<div class="mycard">'
                             +'<div class="card-deck">'
                                 +'<div class="card text-center">'

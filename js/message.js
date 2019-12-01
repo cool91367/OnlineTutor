@@ -15,12 +15,12 @@ $(function(){
         month[10] = "十一月";
         month[11] = "十二月";
     var now = new Date();
-    console.log(now.getMilliseconds());
+    //console.log(now.getMilliseconds());
     firebase.auth().onAuthStateChanged(function(user) { 
         if(user){
             database.ref('root/user/' + user.uid + '/information').once('value' , function(data){
                 myNickname = data.val().Nickname;
-                console.log(myNickname)
+                //console.log(myNickname)
             });
         }
     });
