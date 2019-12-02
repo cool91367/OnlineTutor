@@ -1,4 +1,5 @@
 $(function(){
+    var switchTrack;
     // 只能用這種選擇器   其他種都不行
     var video = document.querySelector('#myVideo');
     var otherVideo = document.querySelector('#othersVideo');
@@ -31,6 +32,7 @@ $(function(){
             });
         }
         else if( $('.classBtn').text() == '下課~' ){
+            $('.screenScharingBtn').hide();
             database.ref('root/user/' + myUid + '/connection').off();
             video.srcObject = null;
             otherVideo.srcObject = null;
@@ -58,19 +60,21 @@ $(function(){
     function startConnection(){
         pc = new webkitRTCPeerConnection(server);
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-        var constraint = {video: true , audio: false};
+        var constraint = {video: true , audio: true};
         pc.onicecandidate = function(evt){
             if (evt.candidate){
                 sendMessage(othersUid ,myUid, JSON.stringify({ 'ice': event.candidate }));
-                console.log('ice candidate');
+                //console.log('ice candidate');
             }
         };
         pc.ontrack = (event) => {
-            console.log(event.streams);
+            //console.log(event.streams);
+            console.log('addtrack');
             if (video.srcObject) return;
             video.srcObject = event.streams[0];
             $('#breaktimeImg').hide();
             $('.myVideo').show();
+            $('.screenScharingBtn').show();
         };
         database.ref('root/user/' + myUid + '/connection').on('child_added' , function(data)
         {
@@ -79,7 +83,7 @@ $(function(){
         });
         navigator.mediaDevices.getUserMedia(constraint)
         .then(function(stream) {
-            stream.getTracks().forEach((track) => pc.addTrack(track, stream));
+            stream.getTracks().forEach((track) =>switchTrack =  pc.addTrack(track, stream));
             otherVideo.srcObject = stream;
             myStream = stream;
             pc.createOffer(localDescCreated, logError);
@@ -91,7 +95,23 @@ $(function(){
             $('#breaktimeImg').show();
         });
     }
-
+    // share screen
+    $('.screenScharingBtn').on('click' , function(){
+        var constraint = {
+            audio: true,
+            video: {
+                mediaSource: 'screen'
+            }
+        };
+        var otherVideo = document.querySelector('#othersVideo');
+        navigator.mediaDevices.getDisplayMedia(constraint)
+        .then(function(stream) {
+            var screen = stream.getVideoTracks()[0];//.forEach((track) => pc.addTrack(track, stream));
+            switchTrack.replaceTrack(screen);
+            otherVideo.srcObject = stream;
+            myStream = stream;
+        });
+    });
     // send message to database's connection folder
     function sendMessage(receiver , sender , message){
         database.ref('root/user/' + receiver + '/connection').push({Sender : sender , Message: message });

@@ -440,6 +440,12 @@ div.modal-body.messageBody{
     top: 85%;
     left: 45%;
 }
+.screenScharingBtn{
+    display: none;
+    position: absolute;
+    top: 85%;
+    left: 20%;
+}
 .selectStudent{
     width: 13%;
     margin: 0px;
